@@ -1,0 +1,107 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <ItemGroup>
+    <Filter Include="Source Files">
+      <UniqueIdentifier>{4FC737F1-C7A5-4376-A066-2A32D752A2FF}</UniqueIdentifier>
+      <Extensions>cpp;c;cc;cxx;def;odl;idl;hpj;bat;asm;asmx</Extensions>
+    </Filter>
+    <Filter Include="Header Files">
+      <UniqueIdentifier>{93995380-89BD-4b04-88EB-625FBE52EBFB}</UniqueIdentifier>
+      <Extensions>h;hh;hpp;hxx;hm;inl;inc;xsd</Extensions>
+    </Filter>
+    <Filter Include="Resource Files">
+      <UniqueIdentifier>{67DA6AB6-F800-4c08-8B7A-83BB121AAD01}</UniqueIdentifier>
+      <Extensions>rc;ico;cur;bmp;dlg;rc2;rct;bin;rgs;gif;jpg;jpeg;jpe;resx;tiff;tif;png;wav;mfcribbon-ms</Extensions>
+    </Filter>
+    <Filter Include="common">
+      <UniqueIdentifier>{556b0c1c-11db-4fbf-a355-ab6a52e37b86}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="node_filter">
+      <UniqueIdentifier>{73163629-20a4-421c-896e-39e3e250426d}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="node_filter\NodeFilterExpression">
+      <UniqueIdentifier>{d001efae-6347-4535-862d-8aa99ed9bae2}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="node_filter\scripts">
+      <UniqueIdentifier>{fda07696-3832-4d2a-a9d9-7a92f367ac89}</UniqueIdentifier>
+    </Filter>
+  </ItemGroup>
+  <ItemGroup>
+    <Text Include="ReadMe.txt" />
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="stdafx.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="targetver.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="common\PODVariant.h">
+      <Filter>common</Filter>
+    </ClInclude>
+    <ClInclude Include="node_filter\NodeFilterExpression\comparation_expression.h">
+      <Filter>node_filter\NodeFilterExpression</Filter>
+    </ClInclude>
+    <ClInclude Include="node_filter\NodeFilterExpression\constant_expression.h">
+      <Filter>node_filter\NodeFilterExpression</Filter>
+    </ClInclude>
+    <ClInclude Include="node_filter\NodeFilterExpression\expressions.h">
+      <Filter>node_filter\NodeFilterExpression</Filter>
+    </ClInclude>
+    <ClInclude Include="node_filter\NodeFilterExpression\logical_expression.h">
+      <Filter>node_filter\NodeFilterExpression</Filter>
+    </ClInclude>
+    <ClInclude Include="node_filter\location.hh">
+      <Filter>node_filter</Filter>
+    </ClInclude>
+    <ClInclude Include="node_filter\node_filter_context.h">
+      <Filter>node_filter</Filter>
+    </ClInclude>
+    <ClInclude Include="node_filter\node_filter_driver.h">
+      <Filter>node_filter</Filter>
+    </ClInclude>
+    <ClInclude Include="node_filter\node_filter_parser.h">
+      <Filter>node_filter</Filter>
+    </ClInclude>
+    <ClInclude Include="node_filter\node_filter_runner.h">
+      <Filter>node_filter</Filter>
+    </ClInclude>
+    <ClInclude Include="node_filter\node_filter_scanner.h">
+      <Filter>node_filter</Filter>
+    </ClInclude>
+    <ClInclude Include="node_filter\position.hh">
+      <Filter>node_filter</Filter>
+    </ClInclude>
+    <ClInclude Include="node_filter\stack.hh">
+      <Filter>node_filter</Filter>
+    </ClInclude>
+    <ClInclude Include="node_filter\NodeFilterExpression\base_expression.h">
+      <Filter>node_filter\NodeFilterExpression</Filter>
+    </ClInclude>
+    <ClInclude Include="node_filter\NodeFilterExpression\math_expression.h">
+      <Filter>node_filter\NodeFilterExpression</Filter>
+    </ClInclude>
+  </ItemGroup>
+  <ItemGroup>
+    <ClCompile Include="stdafx.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="node_filter\node_filter_driver.cc">
+      <Filter>node_filter</Filter>
+    </ClCompile>
+    <ClCompile Include="node_filter\node_filter_parser.cc">
+      <Filter>node_filter</Filter>
+    </ClCompile>
+    <ClCompile Include="node_filter\node_filter_scanner.cc">
+      <Filter>node_filter</Filter>
+    </ClCompile>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="node_filter\script\node_filter_parser.y">
+      <Filter>node_filter\scripts</Filter>
+    </None>
+    <None Include="node_filter\script\node_filter_scanner.l">
+      <Filter>node_filter\scripts</Filter>
+    </None>
+  </ItemGroup>
+</Project>
