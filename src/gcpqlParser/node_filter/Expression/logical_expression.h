@@ -9,12 +9,12 @@ namespace gcpql_nodefilter {
 			: BinaryExpression(left, right)  {
 		}
 
-		PODVariant Execute(const IFilterContext& context) {
+		AstVariant Execute(const IFilterContext& context) {
 			auto left_result = left->Execute(context);
-			if (!left_result.IsTrue()) return PODVariant(false);
+			if (!left_result.IsTrue()) return AstVariant(false);
 			auto right_result = right->Execute(context);
 
-			return PODVariant(right_result.IsTrue());
+			return AstVariant(right_result.IsTrue());
 		}
 	};
 
@@ -24,11 +24,11 @@ namespace gcpql_nodefilter {
 			: BinaryExpression(left, right) {
 		}
 
-		PODVariant Execute(const IFilterContext& context) {
+		AstVariant Execute(const IFilterContext& context) {
 			auto left_result = left->Execute(context);
-			if (left_result.IsTrue()) return PODVariant(true);
+			if (left_result.IsTrue()) return AstVariant(true);
 			auto right_result = right->Execute(context);
-			return PODVariant(right_result.IsTrue());
+			return AstVariant(right_result.IsTrue());
 		}
 	};
 
@@ -38,7 +38,7 @@ namespace gcpql_nodefilter {
 			: UnaryExpression(inner_operation_) {
 		}
 
-		PODVariant Execute(const IFilterContext& context) {
+		AstVariant Execute(const IFilterContext& context) {
 			auto result = inner_operation->Execute(context);
 			return !result.IsTrue();
 		}

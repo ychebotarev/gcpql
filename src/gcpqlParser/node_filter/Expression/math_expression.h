@@ -9,14 +9,14 @@ namespace gcpql_nodefilter {
 			: BinaryExpression(left, right) {
 		}
 
-		PODVariant Execute(const IFilterContext& context) {
+		AstVariant Execute(const IFilterContext& context) {
 			auto left_result = left->Execute(context);
 			auto right_result = right->Execute(context);
 
 			if (left_result.Is<double>() || right_result.Is<double>())
-				return left_result.GetDoubleValue() + right_result.GetDoubleValue();
+				return left_result.AsDouble() + right_result.AsDouble();
 
-			return left_result.GetIntegralValue() + right_result.GetIntegralValue();
+			return left_result.AsLong() + right_result.AsLong();
 		}
 	};
 	
@@ -25,14 +25,14 @@ namespace gcpql_nodefilter {
 		MathExpressionSub(BaseExpression* left, BaseExpression* right)
 			: BinaryExpression(left, right) {
 		}
-		PODVariant Execute(const IFilterContext& context) {
+		AstVariant Execute(const IFilterContext& context) {
 			auto left_result = left->Execute(context);
 			auto right_result = right->Execute(context);
 
 			if (left_result.Is<double>() || right_result.Is<double>())
-				return left_result.GetDoubleValue() - right_result.GetDoubleValue();
+				return left_result.AsDouble() - right_result.AsDouble();
 
-			return left_result.GetIntegralValue() - right_result.GetIntegralValue();
+			return left_result.AsLong() - right_result.AsLong();
 		}
 	};
 	
@@ -41,14 +41,14 @@ namespace gcpql_nodefilter {
 		MathExpressionMul(BaseExpression* left, BaseExpression* right)
 			: BinaryExpression(left, right) {
 		}
-		PODVariant Execute(const IFilterContext& context) {
+		AstVariant Execute(const IFilterContext& context) {
 			auto left_result = left->Execute(context);
 			auto right_result = right->Execute(context);
 
 			if (left_result.Is<double>() || right_result.Is<double>())
-				return left_result.GetDoubleValue() * right_result.GetDoubleValue();
+				return left_result.AsDouble() * right_result.AsDouble();
 
-			return left_result.GetIntegralValue() * right_result.GetIntegralValue();
+			return left_result.AsLong() * right_result.AsLong();
 		}
 	};
 	
@@ -57,14 +57,14 @@ namespace gcpql_nodefilter {
 		MathExpressionDiv(BaseExpression* left, BaseExpression* right)
 			: BinaryExpression(left, right) {
 		}
-		PODVariant Execute(const IFilterContext& context) {
+		AstVariant Execute(const IFilterContext& context) {
 			auto left_result = left->Execute(context);
 			auto right_result = right->Execute(context);
 
-			auto divider = right_result.GetDoubleValue();
+			auto divider = right_result.AsDouble();
 			if (divider == 0.0) throw std::overflow_error("divide by zero");
 			
-			return left_result.GetDoubleValue() / divider;
+			return left_result.AsDouble() / divider;
 		}
 	};
 
@@ -73,21 +73,21 @@ namespace gcpql_nodefilter {
 		MathExpressionDivInt(BaseExpression* left, BaseExpression* right)
 			: BinaryExpression(left, right) {
 		}
-		PODVariant Execute(const IFilterContext& context) {
+		AstVariant Execute(const IFilterContext& context) {
 			auto left_result = left->Execute(context);
 			auto right_result = right->Execute(context);
 
 			if (left_result.Is<double>() || right_result.Is<double>())
 			{
-				auto divider = right_result.GetDoubleValue();
+				auto divider = right_result.AsDouble();
 				if (divider == 0.0) throw std::overflow_error("divide by zero");
-				auto result = left_result.GetDoubleValue() / divider;
+				auto result = left_result.AsDouble() / divider;
 				return (int)result;
 			}
 
-			auto divider = right_result.GetIntegralValue();
+			auto divider = right_result.AsLong();
 			if (divider == 0) throw std::overflow_error("divide by zero");
-			return left_result.GetIntegralValue() / divider;
+			return left_result.AsLong() / divider;
 		}
 	};
 }

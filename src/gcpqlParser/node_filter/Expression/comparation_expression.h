@@ -11,14 +11,14 @@ namespace gcpql_nodefilter {
 			: BinaryExpression(left, right) {
 		}
 
-		PODVariant Execute(const IFilterContext& context) {
+		AstVariant Execute(const IFilterContext& context) {
 			auto left_result = left->Execute(context);
 			auto right_result = right->Execute(context);
 
 			if(left_result.Is<double>() || right_result.Is<double>())
-				return left_result.GetDoubleValue() > right_result.GetDoubleValue();
+				return left_result.AsDouble() > right_result.AsDouble();
 
-			return left_result.GetIntegralValue() > right_result.GetIntegralValue();
+			return left_result.AsLong() > right_result.AsLong();
 		}
 	};
 	
@@ -29,14 +29,14 @@ namespace gcpql_nodefilter {
 			: BinaryExpression(left, right) {
 		}
 
-		PODVariant Execute(const IFilterContext& context) {
+		AstVariant Execute(const IFilterContext& context) {
 			auto left_result = left->Execute(context);
 			auto right_result = right->Execute(context);
 
 			if (left_result.Is<double>() || right_result.Is<double>())
-				return left_result.GetDoubleValue() >= right_result.GetDoubleValue();
+				return left_result.AsDouble() >= right_result.AsDouble();
 
-			return left_result.GetIntegralValue() >= right_result.GetIntegralValue();
+			return left_result.AsLong() >= right_result.AsLong();
 		}
 	};
 	
@@ -47,14 +47,14 @@ namespace gcpql_nodefilter {
 			: BinaryExpression(left, right) {
 		}
 
-		PODVariant Execute(const IFilterContext& context) {
+		AstVariant Execute(const IFilterContext& context) {
 			auto left_result = left->Execute(context);
 			auto right_result = right->Execute(context);
 
 			if (left_result.Is<double>() || right_result.Is<double>())
-				return left_result.GetDoubleValue() < right_result.GetDoubleValue();
+				return left_result.AsDouble() < right_result.AsDouble();
 
-			return left_result.GetIntegralValue() < right_result.GetIntegralValue();
+			return left_result.AsLong() < right_result.AsLong();
 		}
 	};
 
@@ -65,14 +65,14 @@ namespace gcpql_nodefilter {
 			: BinaryExpression(left, right) {
 		}
 
-		PODVariant Execute(const IFilterContext& context) {
+		AstVariant Execute(const IFilterContext& context) {
 			auto left_result = left->Execute(context);
 			auto right_result = right->Execute(context);
 
 			if (left_result.Is<double>() || right_result.Is<double>())
-				return left_result.GetDoubleValue() <= right_result.GetDoubleValue();
+				return left_result.AsDouble() <= right_result.AsDouble();
 
-			return left_result.GetIntegralValue() <= right_result.GetIntegralValue();
+			return left_result.AsLong() <= right_result.AsLong();
 		}
 	};
 	
@@ -82,18 +82,20 @@ namespace gcpql_nodefilter {
 			: BinaryExpression(left, right) {
 		}
 
-		PODVariant Execute(const IFilterContext& context) {
+		AstVariant Execute(const IFilterContext& context) {
 			auto left_result = left->Execute(context);
 			auto right_result = right->Execute(context);
 
 			if (left_result.Is<double>() || right_result.Is<double>()) {
-				auto value_l = left_result.GetDoubleValue();
-				auto value_r = right_result.GetDoubleValue();
-				return left_result.GetDoubleValue() == right_result.GetDoubleValue();
+				auto v1 = left_result.AsDouble();
+				auto v2 = right_result.AsDouble();
+				return (
+					v1 == v2 ||
+					std::abs(v1 - v2) < std::abs(std::min(v1, v2))*std::numeric_limits<double>::epsilon());
 			}
 
-			auto value_l = left_result.GetIntegralValue();
-			auto value_r = right_result.GetIntegralValue();
+			auto value_l = left_result.AsLong();
+			auto value_r = right_result.AsLong();
 			return value_l == value_r;
 		}
 	};
@@ -104,14 +106,20 @@ namespace gcpql_nodefilter {
 			: BinaryExpression(left, right) {
 		}
 
-		PODVariant Execute(const IFilterContext& context) {
+		AstVariant Execute(const IFilterContext& context) {
 			auto left_result = left->Execute(context);
 			auto right_result = right->Execute(context);
 
-			if (left_result.Is<double>() || right_result.Is<double>())
-				return left_result.GetDoubleValue() != right_result.GetDoubleValue();
+			if (left_result.Is<double>() || right_result.Is<double>()) {
+				auto v1 = left_result.AsDouble();
+				auto v2 = right_result.AsDouble();
+				return !(
+					v1 == v2 ||
+					std::abs(v1 - v2) < std::abs(std::min(v1, v2))*std::numeric_limits<double>::epsilon());
 
-			return left_result.GetIntegralValue() != right_result.GetIntegralValue();
+			}
+
+			return left_result.AsLong() != right_result.AsLong();
 		}
 	};
 }

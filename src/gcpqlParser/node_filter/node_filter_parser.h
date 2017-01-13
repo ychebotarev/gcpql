@@ -76,6 +76,7 @@ namespace gcpql_nodefilter {
     double doubleVal;
     std::string* stringVal;
     class BaseExpression* expressionVal;
+	class ConstantsCollection* collectionVal;
 
 
     };
@@ -123,7 +124,7 @@ namespace gcpql_nodefilter {
         CONSTANT_FALSE = 280,
         INTEGER = 281,
         DOUBLE = 282,
-        STRING = 283,
+        STRING_CONSTANT = 283,
         NAME = 284,
         IDENTIFIER = 285,
         BOOL = 286,
@@ -303,7 +304,7 @@ namespace gcpql_nodefilter {
   // number is the opposite.  If YYTABLE_NINF, syntax error.
   static const unsigned char yytable_[];
 
-  static const signed char yycheck_[];
+  static const unsigned char yycheck_[];
 
   // YYSTOS[STATE-NUM] -- The (internal number of the) accessing
   // symbol of state STATE-NUM.
@@ -418,13 +419,13 @@ namespace gcpql_nodefilter {
     enum
     {
       yyeof_ = 0,
-      yylast_ = 87,           //< Last index in yytable_.
-      yynnts_ = 6,  //< Number of nonterminal symbols.
+      yylast_ = 83,           //< Last index in yytable_.
+      yynnts_ = 8,  //< Number of nonterminal symbols.
       yyempty_ = -2,
-      yyfinal_ = 16, //< Termination state number.
+      yyfinal_ = 17, //< Termination state number.
       yyterror_ = 1,
       yyerrcode_ = 256,
-      yyntokens_ = 38    //< Number of tokens.
+      yyntokens_ = 39    //< Number of tokens.
     };
 
 

@@ -3,7 +3,7 @@
 #include <memory>
 #include <iostream>
 
-#include "src/gcpqlParser/common/PODVariant.h"
+#include "src/gcpqlParser/common/AstVariant.h"
 #include "src/gcpqlParser/node_filter/node_filter_context.h"
 
 namespace gcpql_nodefilter {
@@ -12,7 +12,7 @@ namespace gcpql_nodefilter {
 	public:
 		BaseExpression() { }
 		virtual ~BaseExpression() {  };
-		virtual PODVariant Execute(const IFilterContext& context) = 0;
+		virtual AstVariant Execute(const IFilterContext& context) = 0;
 	};
 
 	class BinaryExpression : public BaseExpression {

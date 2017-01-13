@@ -1,6 +1,6 @@
 #pragma once
 
-#include "NodeFilterExpression\base_expression.h"
+#include "Expression\base_expression.h"
 #include "node_filter_context.h"
 
 namespace gcpql_nodefilter {
@@ -11,7 +11,7 @@ namespace gcpql_nodefilter {
 			root = std::unique_ptr<BaseExpression>(_root);
 		}
 
-		PODVariant Execute(const IFilterContext& context) {
+		AstVariant Execute(const IFilterContext& context) {
 			return root->Execute(context);
 		}
 

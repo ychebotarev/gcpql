@@ -19,15 +19,12 @@
     <Filter Include="node_filter">
       <UniqueIdentifier>{73163629-20a4-421c-896e-39e3e250426d}</UniqueIdentifier>
     </Filter>
-    <Filter Include="node_filter\NodeFilterExpression">
-      <UniqueIdentifier>{d001efae-6347-4535-862d-8aa99ed9bae2}</UniqueIdentifier>
-    </Filter>
     <Filter Include="node_filter\scripts">
       <UniqueIdentifier>{fda07696-3832-4d2a-a9d9-7a92f367ac89}</UniqueIdentifier>
     </Filter>
-  </ItemGroup>
-  <ItemGroup>
-    <Text Include="ReadMe.txt" />
+    <Filter Include="node_filter\Expression">
+      <UniqueIdentifier>{d001efae-6347-4535-862d-8aa99ed9bae2}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="stdafx.h">
@@ -35,21 +32,6 @@
     </ClInclude>
     <ClInclude Include="targetver.h">
       <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="common\PODVariant.h">
-      <Filter>common</Filter>
-    </ClInclude>
-    <ClInclude Include="node_filter\NodeFilterExpression\comparation_expression.h">
-      <Filter>node_filter\NodeFilterExpression</Filter>
-    </ClInclude>
-    <ClInclude Include="node_filter\NodeFilterExpression\constant_expression.h">
-      <Filter>node_filter\NodeFilterExpression</Filter>
-    </ClInclude>
-    <ClInclude Include="node_filter\NodeFilterExpression\expressions.h">
-      <Filter>node_filter\NodeFilterExpression</Filter>
-    </ClInclude>
-    <ClInclude Include="node_filter\NodeFilterExpression\logical_expression.h">
-      <Filter>node_filter\NodeFilterExpression</Filter>
     </ClInclude>
     <ClInclude Include="node_filter\location.hh">
       <Filter>node_filter</Filter>
@@ -75,11 +57,32 @@
     <ClInclude Include="node_filter\stack.hh">
       <Filter>node_filter</Filter>
     </ClInclude>
-    <ClInclude Include="node_filter\NodeFilterExpression\base_expression.h">
-      <Filter>node_filter\NodeFilterExpression</Filter>
+    <ClInclude Include="common\AstVariant.h">
+      <Filter>common</Filter>
     </ClInclude>
-    <ClInclude Include="node_filter\NodeFilterExpression\math_expression.h">
-      <Filter>node_filter\NodeFilterExpression</Filter>
+    <ClInclude Include="node_filter\Expression\base_expression.h">
+      <Filter>node_filter\Expression</Filter>
+    </ClInclude>
+    <ClInclude Include="node_filter\Expression\comparation_expression.h">
+      <Filter>node_filter\Expression</Filter>
+    </ClInclude>
+    <ClInclude Include="node_filter\Expression\constant_expression.h">
+      <Filter>node_filter\Expression</Filter>
+    </ClInclude>
+    <ClInclude Include="node_filter\Expression\expressions.h">
+      <Filter>node_filter\Expression</Filter>
+    </ClInclude>
+    <ClInclude Include="node_filter\Expression\logical_expression.h">
+      <Filter>node_filter\Expression</Filter>
+    </ClInclude>
+    <ClInclude Include="node_filter\Expression\math_expression.h">
+      <Filter>node_filter\Expression</Filter>
+    </ClInclude>
+    <ClInclude Include="node_filter\Expression\function_expression.h">
+      <Filter>node_filter\Expression</Filter>
+    </ClInclude>
+    <ClInclude Include="node_filter\Expression\constants_collection.h">
+      <Filter>node_filter\Expression</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

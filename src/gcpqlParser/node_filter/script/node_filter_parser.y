@@ -4,9 +4,11 @@
 %{ /*** C/C++ Declarations ***/
 
 #include <stdio.h>
+#include <memory>
 #include <string>
 #include <vector>
 
+#include "Expression\expressions.h"
 %}
 
 %require "2.4"
@@ -36,6 +38,7 @@
     double doubleVal;
     std::string* stringVal;
     class BaseExpression* expressionVal;
+	class ConstantsCollection* collectionVal;
 }
 
 %token END	     0	"end of file"
@@ -65,15 +68,17 @@
 
 %token <integerVal> INTEGER		"integer"
 %token <doubleVal> 	DOUBLE		"double"
-%token <stringVal> 	STRING		"string"
+%token <stringVal> 	STRING_CONSTANT "string"
 %token <stringVal> NAME
 %token <stringVal> IDENTIFIER
 %token <interegVal> BOOL 
 
-%type <expressionVal>	constant math_expr comparation_expr logical_expr
+%type <expressionVal> constant math_constant math_expr comparation_expr logical_expr
+%type <collectionVal> constant_array
 
-%destructor { delete $$; } STRING
-%destructor { delete $$; } constant math_expr comparation_expr logical_expr
+%destructor { delete $$; } STRING_CONSTANT IDENTIFIER
+%destructor { delete $$; } constant math_constant math_expr comparation_expr logical_expr
+%destructor { delete $$; } constant_array 
 
 %left OP_OR
 %left OP_AND
@@ -92,7 +97,6 @@
 
 %{
 
-#include "NodeFilterExpression\expressions.h"
 #include "node_filter_driver.h"
 #include "node_filter_scanner.h"
 #include "node_filter_runner.h"
@@ -107,49 +111,59 @@
 
 %% 
 
-filter_body : logical_expr { runner.SetRootExpression($1); $1 = NULL; };
+filter_body : logical_expr { runner.SetRootExpression($1); $1 = nullptr; };
 
 logical_expr 
-	: logical_expr OP_AND logical_expr { $$ = new LogicalExpressionAnd($1,$3); $1 = NULL; $3 = NULL; }
-	| logical_expr OP_OR logical_expr { $$ = new LogicalExpressionOr($1,$3); $1 = NULL; $3 = NULL; }
-	| '(' logical_expr ')' { $$ = $2; $2 = NULL; };
-	| comparation_expr { $$ = $1; $1 = NULL; }
+	: logical_expr OP_AND logical_expr { $$ = new LogicalExpressionAnd($1,$3); $1 = NULL; $3 = nullptr; }
+	| logical_expr OP_OR logical_expr { $$ = new LogicalExpressionOr($1,$3); $1 = NULL; $3 = nullptr; }
+	| '(' logical_expr ')' { $$ = $2; $2 = nullptr; };
+	| comparation_expr { $$ = $1; $1 = nullptr; }
 	| CONSTANT_TRUE { $$ = new ConstantExpressionInteger(1); }
 	| CONSTANT_FALSE { $$ = new ConstantExpressionInteger(0); }
-	| OP_NOT logical_expr { $$ = new LogicalExpressionNot($2); $2 = NULL; }
+	| OP_NOT logical_expr { $$ = new LogicalExpressionNot($2); $2 = nullptr; }
 	;
 
 comparation_expr 
-	: math_expr OP_GT math_expr { $$ = new ComparationExpressionGt($1, $3); $1 = NULL; $3 = NULL; }
-	| math_expr OP_GT_EQ math_expr { $$ = new ComparationExpressionGtEq($1, $3); $1 = NULL; $3 = NULL; }
-	| math_expr OP_LT math_expr { $$ = new ComparationExpressionLt($1, $3); $1 = NULL; $3 = NULL; }
-	| math_expr OP_LT_EQ math_expr { $$ = new ComparationExpressionLtEq($1, $3); $1 = NULL; $3 = NULL; }
-	| math_expr OP_EQ math_expr { $$ = new ComparationExpressionEq($1, $3); $1 = NULL; $3 = NULL; }
-	| math_expr OP_NOT_EQ math_expr { $$ = new ComparationExpressionNotEq($1, $3); $1 = NULL; $3 = NULL; }
-	| IDENTIFIER OP_IN '(' constant_array ')' { $$ = new PropertyInArray($1, $3); $1 = NULL; $3 = NULL; }
+	: math_expr OP_GT math_expr { $$ = new ComparationExpressionGt($1, $3); $1 = nullptr; $3 = nullptr; }
+	| math_expr OP_GT_EQ math_expr { $$ = new ComparationExpressionGtEq($1, $3); $1 = NULL; $3 = nullptr; }
+	| math_expr OP_LT math_expr { $$ = new ComparationExpressionLt($1, $3); $1 = nullptr; $3 = nullptr; }
+	| math_expr OP_LT_EQ math_expr { $$ = new ComparationExpressionLtEq($1, $3); $1 = nullptr; $3 = nullptr; }
+	| math_expr OP_EQ math_expr { $$ = new ComparationExpressionEq($1, $3); $1 = nullptr; $3 = nullptr; }
+	| math_expr OP_NOT_EQ math_expr { $$ = new ComparationExpressionNotEq($1, $3); $1 = nullptr; $3 = NULL; }
+	| IDENTIFIER OP_IN '(' constant_array ')' 
+		{
+			auto constant_string = new ConstantExpressionIdentifier(*$1); 
+			$$ = new ValueInCollectionFunction(constant_string, $4); 
+			$1 = nullptr; $4 = nullptr; 
+		}
 	;
 
 constant_array
-	: constant {$$ = new std::vector<BaseExpression>(); $$.push_back($1); $1 = NULL; }
-	| constant ',' constant_array {$$ = $3; $$.push_back($1); $1 = NULL; $3 = NULL;}
+	: constant { $$ = new ConstantsCollection(); $$->Add($1); $1 = nullptr; }
+	| constant ',' constant_array { $$ = $3; $$->Add($1); $1 = nullptr; $3 = nullptr; }
 	;
 
 math_expr 
-	: math_expr OP_PLUS math_expr { $$ = new MathExpressionAdd($1, $3); $1 = NULL; $3 = NULL; }
-	| math_expr OP_MINUS math_expr { $$ = new MathExpressionSub($1, $3); $1 = NULL; $3 = NULL; }
-	| math_expr OP_MUL math_expr { $$ = new MathExpressionMul($1, $3); $1 = NULL; $3 = NULL; }
-	| math_expr OP_DIV math_expr { $$ = new MathExpressionDiv($1, $3); $1 = NULL; $3 = NULL; }
-    | math_expr OP_DIVINT math_expr { $$ = new MathExpressionDivInt($1, $3); $1 = NULL; $3 = NULL; }
-	| constant
+	: math_expr OP_PLUS math_expr { $$ = new MathExpressionAdd($1, $3); $1 = nullptr; $3 = nullptr; }
+	| math_expr OP_MINUS math_expr { $$ = new MathExpressionSub($1, $3); $1 = nullptr; $3 = nullptr; }
+	| math_expr OP_MUL math_expr { $$ = new MathExpressionMul($1, $3); $1 = nullptr; $3 = nullptr; }
+	| math_expr OP_DIV math_expr { $$ = new MathExpressionDiv($1, $3); $1 = nullptr; $3 = nullptr; }
+    | math_expr OP_DIVINT math_expr { $$ = new MathExpressionDivInt($1, $3); $1 = nullptr; $3 = nullptr; }
+	| math_constant
 	;
 
 
-constant
+math_constant
 	: IDENTIFIER { $$ = new ConstantExpressionIdentifier(*$1);}
 	| INTEGER { $$ = new ConstantExpressionInteger($1);}
 	| DOUBLE { $$ = new ConstantExpressionDouble($1);}
 	| '(' math_expr ')' { $$ = $2; };
 	;
+
+constant
+	: math_constant { $$ = $1; $1 = nullptr; }
+	| STRING_CONSTANT { $$ = new ConstantExpressionString($1);}
+	; 
   
 %% 
 

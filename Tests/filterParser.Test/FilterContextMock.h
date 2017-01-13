@@ -1,28 +1,38 @@
 #pragma once
 
 #include "src/gcpqlParser/node_filter/node_filter_context.h"
-#include "src/gcpqlParser/common/PODVariant.h"
+#include "src/gcpqlParser/common/AstVariant.h"
 
 class FilterContextMock : public gcpql_nodefilter::IFilterContext
 {
 public:
-	virtual PODVariant GetProperty(const std::string& property_name) const
+	virtual AstVariant GetPropertyValue(const std::string& property_name) const
 	{
-		if (property_name == "int_property_5") return PODVariant(5);
-		if (property_name == "int_property_10") return PODVariant(10);
-		if (property_name == "int_property_100") return PODVariant(100);
-		if (property_name == "long_property_10") return PODVariant(10L);
-		if (property_name == "double_property_10") return PODVariant(10.0);
-		if (property_name == "bool_property_true") return PODVariant(true);
-		if (property_name == "bool_property_false") return PODVariant(false);
+		if (property_name == "int_property_5") return AstVariant(5);
+		if (property_name == "int_property_10") return AstVariant(10);
+		if (property_name == "int_property_100") return AstVariant(100);
+		if (property_name == "long_property_10") return AstVariant(10L);
+		if (property_name == "double_property_10") return AstVariant(10.0);
+		if (property_name == "bool_property_true") return AstVariant(true);
+		if (property_name == "bool_property_false") return AstVariant(false);
+		if (property_name == "string_property_a") return AstVariant((char*)string_a.c_str());
+		if (property_name == "string_property_b") return AstVariant((char*)string_b.c_str());
+		if (property_name == "string_property_c") return AstVariant((char*)string_c.c_str());
 
-		return PODVariant(0);
+		return AstVariant(0);
 	};
 
 	static const gcpql_nodefilter::IFilterContext& Instance()
 	{
 		static FilterContextMock mock;
+		mock.string_a = "a";
+		mock.string_b = "b";
+		mock.string_c = "c";
 		return mock;
 	}
+private:
+	std::string string_a;
+	std::string string_b;
+	std::string string_c;
 };
 

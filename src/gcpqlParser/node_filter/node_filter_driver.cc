@@ -31,7 +31,7 @@ namespace gcpql_nodefilter {
 #if YYDEBUG
 		parser.set_debug_level(trace_parsing);
 #endif
-		return (parser.parse() == 0) ? runner.release() : NULL;
+		return (parser.parse() == 0) ? runner.release() : nullptr;
 	}
 
 

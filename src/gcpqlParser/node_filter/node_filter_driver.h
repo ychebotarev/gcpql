@@ -7,7 +7,7 @@
 #include <string>
 #include <vector>
 #include <memory>
-#include "NodeFilterExpression\expressions.h"
+#include "Expression\expressions.h"
 
 namespace gcpql_nodefilter {
 

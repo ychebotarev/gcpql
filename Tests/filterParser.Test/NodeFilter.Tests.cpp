@@ -160,6 +160,18 @@ namespace filterParserTest
 			ExpectParsingError("and 1");
 		}
 
+		TEST_METHOD(filterParserTestCollection)
+		{
+			ExpectTrue("string_property_a in (\"b\",\"c\",\"a\")");
+			ExpectTrue("string_property_a in (string_property_a , \"b\",\"c\")");
+			ExpectTrue("int_property_5 in (\"b\", 5, \"c\")");
+
+			ExpectFalse("string_property_a in (\"b\",\"c\")");
+			ExpectFalse("string_property_a in (string_property_b,string_property_c)");
+			ExpectFalse("int_property_5 in (\"b\",\"c\")");
+			ExpectFalse("int_property_5 in (\"b\", 4, int_property_10, \"c\")");
+		}
+
 		void ExpectTrue(const std::string& script)
 		{
 			gcpql_nodefilter::Driver driver;

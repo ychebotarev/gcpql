@@ -36,9 +36,11 @@
  /*** C/C++ Declarations ***/
 
 #include <stdio.h>
+#include <memory>
 #include <string>
 #include <vector>
 
+#include "Expression\expressions.h"
 
 
 
@@ -56,7 +58,6 @@
 
 
 
-#include "NodeFilterExpression\expressions.h"
 #include "node_filter_driver.h"
 #include "node_filter_scanner.h"
 #include "node_filter_runner.h"
@@ -377,28 +378,49 @@ namespace gcpql_nodefilter {
 
         break;
 
-      case 40: // logical_expr
+      case 30: // IDENTIFIER
+
+
+        { delete (yysym.value.stringVal); }
+
+        break;
+
+      case 41: // logical_expr
 
 
         { delete (yysym.value.expressionVal); }
 
         break;
 
-      case 41: // comparation_expr
+      case 42: // comparation_expr
 
 
         { delete (yysym.value.expressionVal); }
 
         break;
 
-      case 42: // math_expr
+      case 43: // constant_array
+
+
+        { delete (yysym.value.collectionVal); }
+
+        break;
+
+      case 44: // math_expr
 
 
         { delete (yysym.value.expressionVal); }
 
         break;
 
-      case 43: // constant
+      case 45: // math_constant
+
+
+        { delete (yysym.value.expressionVal); }
+
+        break;
+
+      case 46: // constant
 
 
         { delete (yysym.value.expressionVal); }
@@ -652,31 +674,31 @@ namespace gcpql_nodefilter {
           {
   case 2:
 
-    { runner.SetRootExpression((yystack_[0].value.expressionVal)); (yystack_[0].value.expressionVal) = NULL; }
+    { runner.SetRootExpression((yystack_[0].value.expressionVal)); (yystack_[0].value.expressionVal) = nullptr; }
 
     break;
 
   case 3:
 
-    { (yylhs.value.expressionVal) = new LogicalExpressionAnd((yystack_[2].value.expressionVal),(yystack_[0].value.expressionVal)); (yystack_[2].value.expressionVal) = NULL; (yystack_[0].value.expressionVal) = NULL; }
+    { (yylhs.value.expressionVal) = new LogicalExpressionAnd((yystack_[2].value.expressionVal),(yystack_[0].value.expressionVal)); (yystack_[2].value.expressionVal) = NULL; (yystack_[0].value.expressionVal) = nullptr; }
 
     break;
 
   case 4:
 
-    { (yylhs.value.expressionVal) = new LogicalExpressionOr((yystack_[2].value.expressionVal),(yystack_[0].value.expressionVal)); (yystack_[2].value.expressionVal) = NULL; (yystack_[0].value.expressionVal) = NULL; }
+    { (yylhs.value.expressionVal) = new LogicalExpressionOr((yystack_[2].value.expressionVal),(yystack_[0].value.expressionVal)); (yystack_[2].value.expressionVal) = NULL; (yystack_[0].value.expressionVal) = nullptr; }
 
     break;
 
   case 5:
 
-    { (yylhs.value.expressionVal) = (yystack_[1].value.expressionVal); (yystack_[1].value.expressionVal) = NULL; }
+    { (yylhs.value.expressionVal) = (yystack_[1].value.expressionVal); (yystack_[1].value.expressionVal) = nullptr; }
 
     break;
 
   case 6:
 
-    { (yylhs.value.expressionVal) = (yystack_[0].value.expressionVal); (yystack_[0].value.expressionVal) = NULL; }
+    { (yylhs.value.expressionVal) = (yystack_[0].value.expressionVal); (yystack_[0].value.expressionVal) = nullptr; }
 
     break;
 
@@ -694,97 +716,131 @@ namespace gcpql_nodefilter {
 
   case 9:
 
-    { (yylhs.value.expressionVal) = new LogicalExpressionNot((yystack_[0].value.expressionVal)); (yystack_[0].value.expressionVal) = NULL; }
+    { (yylhs.value.expressionVal) = new LogicalExpressionNot((yystack_[0].value.expressionVal)); (yystack_[0].value.expressionVal) = nullptr; }
 
     break;
 
   case 10:
 
-    { (yylhs.value.expressionVal) = new ComparationExpressionGt((yystack_[2].value.expressionVal), (yystack_[0].value.expressionVal)); (yystack_[2].value.expressionVal) = NULL; (yystack_[0].value.expressionVal) = NULL; }
+    { (yylhs.value.expressionVal) = new ComparationExpressionGt((yystack_[2].value.expressionVal), (yystack_[0].value.expressionVal)); (yystack_[2].value.expressionVal) = nullptr; (yystack_[0].value.expressionVal) = nullptr; }
 
     break;
 
   case 11:
 
-    { (yylhs.value.expressionVal) = new ComparationExpressionGtEq((yystack_[2].value.expressionVal), (yystack_[0].value.expressionVal)); (yystack_[2].value.expressionVal) = NULL; (yystack_[0].value.expressionVal) = NULL; }
+    { (yylhs.value.expressionVal) = new ComparationExpressionGtEq((yystack_[2].value.expressionVal), (yystack_[0].value.expressionVal)); (yystack_[2].value.expressionVal) = NULL; (yystack_[0].value.expressionVal) = nullptr; }
 
     break;
 
   case 12:
 
-    { (yylhs.value.expressionVal) = new ComparationExpressionLt((yystack_[2].value.expressionVal), (yystack_[0].value.expressionVal)); (yystack_[2].value.expressionVal) = NULL; (yystack_[0].value.expressionVal) = NULL; }
+    { (yylhs.value.expressionVal) = new ComparationExpressionLt((yystack_[2].value.expressionVal), (yystack_[0].value.expressionVal)); (yystack_[2].value.expressionVal) = nullptr; (yystack_[0].value.expressionVal) = nullptr; }
 
     break;
 
   case 13:
 
-    { (yylhs.value.expressionVal) = new ComparationExpressionLtEq((yystack_[2].value.expressionVal), (yystack_[0].value.expressionVal)); (yystack_[2].value.expressionVal) = NULL; (yystack_[0].value.expressionVal) = NULL; }
+    { (yylhs.value.expressionVal) = new ComparationExpressionLtEq((yystack_[2].value.expressionVal), (yystack_[0].value.expressionVal)); (yystack_[2].value.expressionVal) = nullptr; (yystack_[0].value.expressionVal) = nullptr; }
 
     break;
 
   case 14:
 
-    { (yylhs.value.expressionVal) = new ComparationExpressionEq((yystack_[2].value.expressionVal), (yystack_[0].value.expressionVal)); (yystack_[2].value.expressionVal) = NULL; (yystack_[0].value.expressionVal) = NULL; }
+    { (yylhs.value.expressionVal) = new ComparationExpressionEq((yystack_[2].value.expressionVal), (yystack_[0].value.expressionVal)); (yystack_[2].value.expressionVal) = nullptr; (yystack_[0].value.expressionVal) = nullptr; }
 
     break;
 
   case 15:
 
-    { (yylhs.value.expressionVal) = new ComparationExpressionNotEq((yystack_[2].value.expressionVal), (yystack_[0].value.expressionVal)); (yystack_[2].value.expressionVal) = NULL; (yystack_[0].value.expressionVal) = NULL; }
+    { (yylhs.value.expressionVal) = new ComparationExpressionNotEq((yystack_[2].value.expressionVal), (yystack_[0].value.expressionVal)); (yystack_[2].value.expressionVal) = nullptr; (yystack_[0].value.expressionVal) = NULL; }
 
     break;
 
   case 16:
 
-    { (yylhs.value.expressionVal) = new MathExpressionAdd((yystack_[2].value.expressionVal), (yystack_[0].value.expressionVal)); (yystack_[2].value.expressionVal) = NULL; (yystack_[0].value.expressionVal) = NULL; }
+    {
+			auto constant_string = new ConstantExpressionIdentifier(*(yystack_[4].value.stringVal)); 
+			(yylhs.value.expressionVal) = new ValueInCollectionFunction(constant_string, (yystack_[1].value.collectionVal)); 
+			(yystack_[4].value.stringVal) = nullptr; (yystack_[1].value.collectionVal) = nullptr; 
+		}
 
     break;
 
   case 17:
 
-    { (yylhs.value.expressionVal) = new MathExpressionSub((yystack_[2].value.expressionVal), (yystack_[0].value.expressionVal)); (yystack_[2].value.expressionVal) = NULL; (yystack_[0].value.expressionVal) = NULL; }
+    { (yylhs.value.collectionVal) = new ConstantsCollection(); (yylhs.value.collectionVal)->Add((yystack_[0].value.expressionVal)); (yystack_[0].value.expressionVal) = nullptr; }
 
     break;
 
   case 18:
 
-    { (yylhs.value.expressionVal) = new MathExpressionMul((yystack_[2].value.expressionVal), (yystack_[0].value.expressionVal)); (yystack_[2].value.expressionVal) = NULL; (yystack_[0].value.expressionVal) = NULL; }
+    { (yylhs.value.collectionVal) = (yystack_[0].value.collectionVal); (yylhs.value.collectionVal)->Add((yystack_[2].value.expressionVal)); (yystack_[2].value.expressionVal) = nullptr; (yystack_[0].value.collectionVal) = nullptr; }
 
     break;
 
   case 19:
 
-    { (yylhs.value.expressionVal) = new MathExpressionDiv((yystack_[2].value.expressionVal), (yystack_[0].value.expressionVal)); (yystack_[2].value.expressionVal) = NULL; (yystack_[0].value.expressionVal) = NULL; }
+    { (yylhs.value.expressionVal) = new MathExpressionAdd((yystack_[2].value.expressionVal), (yystack_[0].value.expressionVal)); (yystack_[2].value.expressionVal) = nullptr; (yystack_[0].value.expressionVal) = nullptr; }
 
     break;
 
   case 20:
 
-    { (yylhs.value.expressionVal) = new MathExpressionDivInt((yystack_[2].value.expressionVal), (yystack_[0].value.expressionVal)); (yystack_[2].value.expressionVal) = NULL; (yystack_[0].value.expressionVal) = NULL; }
+    { (yylhs.value.expressionVal) = new MathExpressionSub((yystack_[2].value.expressionVal), (yystack_[0].value.expressionVal)); (yystack_[2].value.expressionVal) = nullptr; (yystack_[0].value.expressionVal) = nullptr; }
+
+    break;
+
+  case 21:
+
+    { (yylhs.value.expressionVal) = new MathExpressionMul((yystack_[2].value.expressionVal), (yystack_[0].value.expressionVal)); (yystack_[2].value.expressionVal) = nullptr; (yystack_[0].value.expressionVal) = nullptr; }
 
     break;
 
   case 22:
 
-    { (yylhs.value.expressionVal) = new ConstantExpressionIdentifier(*(yystack_[0].value.stringVal));}
+    { (yylhs.value.expressionVal) = new MathExpressionDiv((yystack_[2].value.expressionVal), (yystack_[0].value.expressionVal)); (yystack_[2].value.expressionVal) = nullptr; (yystack_[0].value.expressionVal) = nullptr; }
 
     break;
 
   case 23:
 
-    { (yylhs.value.expressionVal) = new ConstantExpressionInteger((yystack_[0].value.integerVal));}
-
-    break;
-
-  case 24:
-
-    { (yylhs.value.expressionVal) = new ConstantExpressionDouble((yystack_[0].value.doubleVal));}
+    { (yylhs.value.expressionVal) = new MathExpressionDivInt((yystack_[2].value.expressionVal), (yystack_[0].value.expressionVal)); (yystack_[2].value.expressionVal) = nullptr; (yystack_[0].value.expressionVal) = nullptr; }
 
     break;
 
   case 25:
 
+    { (yylhs.value.expressionVal) = new ConstantExpressionIdentifier(*(yystack_[0].value.stringVal));}
+
+    break;
+
+  case 26:
+
+    { (yylhs.value.expressionVal) = new ConstantExpressionInteger((yystack_[0].value.integerVal));}
+
+    break;
+
+  case 27:
+
+    { (yylhs.value.expressionVal) = new ConstantExpressionDouble((yystack_[0].value.doubleVal));}
+
+    break;
+
+  case 28:
+
     { (yylhs.value.expressionVal) = (yystack_[1].value.expressionVal); }
+
+    break;
+
+  case 29:
+
+    { (yylhs.value.expressionVal) = (yystack_[0].value.expressionVal); (yystack_[0].value.expressionVal) = nullptr; }
+
+    break;
+
+  case 30:
+
+    { (yylhs.value.expressionVal) = new ConstantExpressionString((yystack_[0].value.stringVal));}
 
     break;
 
@@ -1043,94 +1099,99 @@ namespace gcpql_nodefilter {
   }
 
 
-  const signed char Parser::yypact_ninf_ = -8;
+  const signed char Parser::yypact_ninf_ = -18;
 
   const signed char Parser::yytable_ninf_ = -1;
 
   const signed char
   Parser::yypact_[] =
   {
-      10,    10,    -8,    -8,    -8,    -8,    -8,    10,    27,    20,
-      -8,    57,    -8,    -8,    -4,    -7,    -8,    10,    10,    51,
-      51,    51,    51,    51,    51,    51,    51,    51,    51,    51,
-      -8,    -8,    -8,    24,    51,    -2,    -2,    -2,    -2,    -2,
-      -2,    30,    30,    -8,    -8,    -8,     4
+      18,    18,   -18,   -18,   -18,   -18,    27,    18,    30,    23,
+     -18,    46,   -18,   -18,     0,    -4,    -6,   -18,    18,    18,
+      47,    47,    47,    47,    47,    47,    47,    47,    47,    47,
+      47,    40,   -18,   -18,   -18,    33,   -18,    47,    63,    63,
+      63,    63,    63,    63,    22,    22,   -18,   -18,   -18,   -18,
+      32,   -18,    37,    34,   -18,    40,   -18
   };
 
   const unsigned char
   Parser::yydefact_[] =
   {
-       0,     0,     7,     8,    23,    24,    22,     0,     0,     2,
-       6,     0,    21,     9,     0,     0,     1,     0,     0,     0,
+       0,     0,     7,     8,    26,    27,    25,     0,     0,     2,
+       6,     0,    24,     9,     0,     0,     0,     1,     0,     0,
        0,     0,     0,     0,     0,     0,     0,     0,     0,     0,
-       5,    25,     3,     4,     0,    10,    11,    12,    13,    14,
-      15,    16,    17,    18,    20,    19,     0
+       0,     0,     5,    28,     3,     4,    25,     0,    10,    11,
+      12,    13,    14,    15,    19,    20,    21,    23,    22,    30,
+       0,    29,    17,     0,    16,     0,    18
   };
 
   const signed char
   Parser::yypgoto_[] =
   {
-      -8,    -8,    25,    -8,    31,    -8
+     -18,   -18,    28,   -18,    17,    -5,   -17,   -18
   };
 
   const signed char
   Parser::yydefgoto_[] =
   {
-      -1,     8,     9,    10,    11,    12
+      -1,     8,     9,    10,    50,    11,    12,    52
   };
 
   const unsigned char
   Parser::yytable_[] =
   {
-      17,    18,    19,    20,    21,    22,    23,    24,    25,    26,
-      27,    28,    29,    25,    26,    27,    28,    29,     1,    25,
-      26,    27,    28,    29,    17,    18,    13,    16,    17,     0,
-      31,     0,    14,    30,     2,     3,     4,     5,    15,     0,
-       6,    31,    32,    33,     0,     0,     7,    27,    28,    29,
-      35,    36,    37,    38,    39,    40,    41,    42,    43,    44,
-      45,     0,     0,     0,     0,    46,    19,    20,    21,    22,
-      23,    24,    25,    26,    27,    28,    29,     4,     5,     0,
-       0,     6,     0,     0,     0,     0,     0,    34
+      18,    19,    16,    20,    21,    22,    23,    24,    25,    26,
+      27,    28,    29,    30,    51,    38,    39,    40,    41,    42,
+      43,    44,    45,    46,    47,    48,     1,    18,    19,    13,
+      17,    33,    53,    32,    14,    15,    31,    18,    51,    28,
+      29,    30,     2,     3,     4,     5,    34,    35,     6,    26,
+      27,    28,    29,    30,     7,    20,    21,    22,    23,    24,
+      25,    26,    27,    28,    29,    30,     4,     5,    49,    54,
+      36,    33,    56,     4,     5,    55,    37,    36,    26,    27,
+      28,    29,    30,    37
   };
 
-  const signed char
+  const unsigned char
   Parser::yycheck_[] =
   {
-       4,     5,     9,    10,    11,    12,    13,    14,    15,    16,
-      17,    18,    19,    15,    16,    17,    18,    19,     8,    15,
-      16,    17,    18,    19,     4,     5,     1,     0,     4,    -1,
-      37,    -1,     7,    37,    24,    25,    26,    27,     7,    -1,
-      30,    37,    17,    18,    -1,    -1,    36,    17,    18,    19,
-      19,    20,    21,    22,    23,    24,    25,    26,    27,    28,
-      29,    -1,    -1,    -1,    -1,    34,     9,    10,    11,    12,
-      13,    14,    15,    16,    17,    18,    19,    26,    27,    -1,
-      -1,    30,    -1,    -1,    -1,    -1,    -1,    36
+       4,     5,     7,     9,    10,    11,    12,    13,    14,    15,
+      16,    17,    18,    19,    31,    20,    21,    22,    23,    24,
+      25,    26,    27,    28,    29,    30,     8,     4,     5,     1,
+       0,    37,    37,    37,     7,     7,    36,     4,    55,    17,
+      18,    19,    24,    25,    26,    27,    18,    19,    30,    15,
+      16,    17,    18,    19,    36,     9,    10,    11,    12,    13,
+      14,    15,    16,    17,    18,    19,    26,    27,    28,    37,
+      30,    37,    55,    26,    27,    38,    36,    30,    15,    16,
+      17,    18,    19,    36
   };
 
   const unsigned char
   Parser::yystos_[] =
   {
-       0,     8,    24,    25,    26,    27,    30,    36,    39,    40,
-      41,    42,    43,    40,    40,    42,     0,     4,     5,     9,
-      10,    11,    12,    13,    14,    15,    16,    17,    18,    19,
-      37,    37,    40,    40,    36,    42,    42,    42,    42,    42,
-      42,    42,    42,    42,    42,    42,    42
+       0,     8,    24,    25,    26,    27,    30,    36,    40,    41,
+      42,    44,    45,    41,     7,    41,    44,     0,     4,     5,
+       9,    10,    11,    12,    13,    14,    15,    16,    17,    18,
+      19,    36,    37,    37,    41,    41,    30,    36,    44,    44,
+      44,    44,    44,    44,    44,    44,    44,    44,    44,    28,
+      43,    45,    46,    44,    37,    38,    43
   };
 
   const unsigned char
   Parser::yyr1_[] =
   {
-       0,    38,    39,    40,    40,    40,    40,    40,    40,    40,
-      41,    41,    41,    41,    41,    41,    42,    42,    42,    42,
-      42,    42,    43,    43,    43,    43
+       0,    39,    40,    41,    41,    41,    41,    41,    41,    41,
+      42,    42,    42,    42,    42,    42,    42,    43,    43,    44,
+      44,    44,    44,    44,    44,    45,    45,    45,    45,    46,
+      46
   };
 
   const unsigned char
   Parser::yyr2_[] =
   {
        0,     2,     1,     3,     3,     3,     1,     1,     1,     2,
-       3,     3,     3,     3,     3,     3,     3,     3,     3,     3,
-       3,     1,     1,     1,     1,     3
+       3,     3,     3,     3,     3,     3,     5,     1,     3,     3,
+       3,     3,     3,     3,     1,     1,     1,     1,     3,     1,
+       1
   };
 
 
@@ -1146,17 +1207,19 @@ namespace gcpql_nodefilter {
   "OP_DIVINT", "OP_DIV", "OP_MOD", "OP_POW", "OP_SHIFT_LEFT",
   "OP_SHIFT_RIGHT", "CONSTANT_TRUE", "CONSTANT_FALSE", "\"integer\"",
   "\"double\"", "\"string\"", "NAME", "IDENTIFIER", "BOOL", "'|'", "'&'",
-  "'^'", "UMINUS", "'('", "')'", "$accept", "filter_body", "logical_expr",
-  "comparation_expr", "math_expr", "constant", YY_NULL
+  "'^'", "UMINUS", "'('", "')'", "','", "$accept", "filter_body",
+  "logical_expr", "comparation_expr", "constant_array", "math_expr",
+  "math_constant", "constant", YY_NULL
   };
 
 #if YYDEBUG
   const unsigned char
   Parser::yyrline_[] =
   {
-       0,   110,   110,   113,   114,   115,   116,   117,   118,   119,
-     123,   124,   125,   126,   127,   128,   132,   133,   134,   135,
-     136,   137,   142,   143,   144,   145
+       0,   114,   114,   117,   118,   119,   120,   121,   122,   123,
+     127,   128,   129,   130,   131,   132,   133,   142,   143,   147,
+     148,   149,   150,   151,   152,   157,   158,   159,   160,   164,
+     165
   };
 
   // Print the state stack on the debug stream.
@@ -1201,7 +1264,7 @@ namespace gcpql_nodefilter {
        2,     2,     2,     2,     2,     2,     2,     2,     2,     2,
        2,     2,     2,     2,     2,     2,     2,     2,     2,     2,
        2,     2,     2,     2,     2,     2,     2,     2,    33,     2,
-      36,    37,     2,     2,     2,     2,     2,     2,     2,     2,
+      36,    37,     2,     2,    38,     2,     2,     2,     2,     2,
        2,     2,     2,     2,     2,     2,     2,     2,     2,     2,
        2,     2,     2,     2,     2,     2,     2,     2,     2,     2,
        2,     2,     2,     2,     2,     2,     2,     2,     2,     2,

@@ -1,13 +1,13 @@
 #pragma once
 
 #include <string>
-#include "src/gcpqlParser/common/PODVariant.h"
+#include "src/gcpqlParser/common/AstVariant.h"
 
 namespace gcpql_nodefilter {
 	class IFilterContext
 	{
 	public:
 		virtual ~IFilterContext() {}
-		virtual PODVariant GetProperty(const std::string& property_name) const= 0;
+		virtual AstVariant GetPropertyValue(const std::string& property_name) const= 0;
 	}; 
 }

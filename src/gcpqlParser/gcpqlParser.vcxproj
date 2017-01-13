@@ -130,17 +130,16 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
-    <Text Include="ReadMe.txt" />
-  </ItemGroup>
-  <ItemGroup>
-    <ClInclude Include="common\PODVariant.h" />
+    <ClInclude Include="common\AstVariant.h" />
+    <ClInclude Include="node_filter\Expression\base_expression.h" />
+    <ClInclude Include="node_filter\Expression\comparation_expression.h" />
+    <ClInclude Include="node_filter\Expression\constants_collection.h" />
+    <ClInclude Include="node_filter\Expression\constant_expression.h" />
+    <ClInclude Include="node_filter\Expression\expressions.h" />
+    <ClInclude Include="node_filter\Expression\function_expression.h" />
+    <ClInclude Include="node_filter\Expression\logical_expression.h" />
+    <ClInclude Include="node_filter\Expression\math_expression.h" />
     <ClInclude Include="node_filter\location.hh" />
-    <ClInclude Include="node_filter\NodeFilterExpression\comparation_expression.h" />
-    <ClInclude Include="node_filter\NodeFilterExpression\constant_expression.h" />
-    <ClInclude Include="node_filter\NodeFilterExpression\expressions.h" />
-    <ClInclude Include="node_filter\NodeFilterExpression\base_expression.h" />
-    <ClInclude Include="node_filter\NodeFilterExpression\logical_expression.h" />
-    <ClInclude Include="node_filter\NodeFilterExpression\math_expression.h" />
     <ClInclude Include="node_filter\node_filter_context.h" />
     <ClInclude Include="node_filter\node_filter_driver.h" />
     <ClInclude Include="node_filter\node_filter_parser.h" />

@@ -9,8 +9,8 @@ namespace gcpql_nodefilter {
 			this->value = d;
 		}
 
-		PODVariant Execute(const IFilterContext& context) {
-			return PODVariant(value);
+		AstVariant Execute(const IFilterContext& context) {
+			return AstVariant(value);
 		}
 
 	private:
@@ -23,8 +23,8 @@ namespace gcpql_nodefilter {
 			this->value = i;
 		}
 
-		PODVariant Execute(const IFilterContext& context) {
-			return PODVariant(value);
+		AstVariant Execute(const IFilterContext& context) {
+			return AstVariant(value);
 		}
 
 	private:
@@ -37,11 +37,25 @@ namespace gcpql_nodefilter {
 			this->value = str;
 		}
 
-		PODVariant Execute(const IFilterContext& context) {
-			return context.GetProperty(value);
+		AstVariant Execute(const IFilterContext& context) {
+			return context.GetPropertyValue(value);
 		}
 
 	private:
 		std::string value;
 	};
+
+	class ConstantExpressionString : public BaseExpression {
+	public:
+		ConstantExpressionString(std::string* value_):value(value_) {
+		}
+
+		AstVariant Execute(const IFilterContext& context) {
+			return AstVariant(value.get());
+		}
+
+	private:
+		std::unique_ptr<std::string> value;
+	};
+	
 }//end nodefilter

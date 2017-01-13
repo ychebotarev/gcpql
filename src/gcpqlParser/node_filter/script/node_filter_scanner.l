@@ -96,6 +96,11 @@ typedef gcpql_nodefilter::Parser::token_type token_type;
 "%" 	{ return token::OP_MOD; }
 "^" 	{ return token::OP_POW; }
 
+\"(\\.|[^"])*\" {
+    yylval->stringVal = new std::string(yytext+1, yyleng-2);
+    return token::STRING_CONSTANT;
+} 
+
   /* gobble up white-spaces */
 [ \t\r]+ {
     yylloc->step();
