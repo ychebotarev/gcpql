@@ -304,7 +304,7 @@ namespace gcpql_nodefilter {
   // number is the opposite.  If YYTABLE_NINF, syntax error.
   static const unsigned char yytable_[];
 
-  static const unsigned char yycheck_[];
+  static const signed char yycheck_[];
 
   // YYSTOS[STATE-NUM] -- The (internal number of the) accessing
   // symbol of state STATE-NUM.
@@ -419,10 +419,10 @@ namespace gcpql_nodefilter {
     enum
     {
       yyeof_ = 0,
-      yylast_ = 83,           //< Last index in yytable_.
-      yynnts_ = 8,  //< Number of nonterminal symbols.
+      yylast_ = 82,           //< Last index in yytable_.
+      yynnts_ = 7,  //< Number of nonterminal symbols.
       yyempty_ = -2,
-      yyfinal_ = 17, //< Termination state number.
+      yyfinal_ = 18, //< Termination state number.
       yyterror_ = 1,
       yyerrcode_ = 256,
       yyntokens_ = 39    //< Number of tokens.

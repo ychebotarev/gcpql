@@ -118,7 +118,7 @@ public:
 			const char* v2 = variant.AsString();
 			return strcmp(v1, v2) == 0;
 		}
-		if (IsNumericType() || variant.IsNumericType()) {
+		if (IsNumericType() && variant.IsNumericType()) {
 			return AsLong() == variant.AsLong();
 		}
 		

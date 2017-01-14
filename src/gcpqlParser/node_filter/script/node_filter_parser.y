@@ -73,11 +73,11 @@
 %token <stringVal> IDENTIFIER
 %token <interegVal> BOOL 
 
-%type <expressionVal> constant math_constant math_expr comparation_expr logical_expr
+%type <expressionVal> constant math_expr comparation_expr logical_expr
 %type <collectionVal> constant_array
 
 %destructor { delete $$; } STRING_CONSTANT IDENTIFIER
-%destructor { delete $$; } constant math_constant math_expr comparation_expr logical_expr
+%destructor { delete $$; } constant math_expr comparation_expr logical_expr
 %destructor { delete $$; } constant_array 
 
 %left OP_OR
@@ -149,22 +149,17 @@ math_expr
 	| math_expr OP_MUL math_expr { $$ = new MathExpressionMul($1, $3); $1 = nullptr; $3 = nullptr; }
 	| math_expr OP_DIV math_expr { $$ = new MathExpressionDiv($1, $3); $1 = nullptr; $3 = nullptr; }
     | math_expr OP_DIVINT math_expr { $$ = new MathExpressionDivInt($1, $3); $1 = nullptr; $3 = nullptr; }
-	| math_constant
+	| constant
 	;
 
-
-math_constant
-	: IDENTIFIER { $$ = new ConstantExpressionIdentifier(*$1);}
+constant
+	: STRING_CONSTANT { $$ = new ConstantExpressionString($1); $1 = nullptr; }
+	| IDENTIFIER { $$ = new ConstantExpressionIdentifier(*$1);}
 	| INTEGER { $$ = new ConstantExpressionInteger($1);}
 	| DOUBLE { $$ = new ConstantExpressionDouble($1);}
 	| '(' math_expr ')' { $$ = $2; };
 	;
 
-constant
-	: math_constant { $$ = $1; $1 = nullptr; }
-	| STRING_CONSTANT { $$ = new ConstantExpressionString($1);}
-	; 
-  
 %% 
 
 void gcpql_nodefilter::Parser::error(const Parser::location_type& l,

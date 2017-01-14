@@ -94,6 +94,17 @@ namespace filterParserTest
 			ExpectTrue("2+10/2=7");
 			ExpectTrue("20-10/2=15");
 
+			//test string comparation
+			ExpectTrue("string_property_a='a'");
+			ExpectTrue("string_property_a=\"a\"");
+			ExpectTrue("string_property_a!='b'");
+			ExpectTrue("string_property_a!=\"b\"");
+
+			ExpectFalse("string_property_b='a'");
+			ExpectFalse("string_property_b=\"a\"");
+			ExpectFalse("string_property_b!='b'");
+			ExpectFalse("string_property_b!=\"b\"");
+
 			//test division by zero
 			bool was_exception = false;
 			
@@ -165,11 +176,14 @@ namespace filterParserTest
 			ExpectTrue("string_property_a in (\"b\",\"c\",\"a\")");
 			ExpectTrue("string_property_a in (string_property_a , \"b\",\"c\")");
 			ExpectTrue("int_property_5 in (\"b\", 5, \"c\")");
+			ExpectTrue("int_property_5 in (\"b\", 5, \"c\")");
+			ExpectTrue("string_property_a in ('b','c','a')");
 
 			ExpectFalse("string_property_a in (\"b\",\"c\")");
 			ExpectFalse("string_property_a in (string_property_b,string_property_c)");
 			ExpectFalse("int_property_5 in (\"b\",\"c\")");
 			ExpectFalse("int_property_5 in (\"b\", 4, int_property_10, \"c\")");
+			ExpectFalse("bool_property_true in (0, \"true\", 'true')");
 		}
 
 		void ExpectTrue(const std::string& script)

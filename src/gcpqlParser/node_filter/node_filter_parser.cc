@@ -413,14 +413,7 @@ namespace gcpql_nodefilter {
 
         break;
 
-      case 45: // math_constant
-
-
-        { delete (yysym.value.expressionVal); }
-
-        break;
-
-      case 46: // constant
+      case 45: // constant
 
 
         { delete (yysym.value.expressionVal); }
@@ -810,37 +803,31 @@ namespace gcpql_nodefilter {
 
   case 25:
 
-    { (yylhs.value.expressionVal) = new ConstantExpressionIdentifier(*(yystack_[0].value.stringVal));}
+    { (yylhs.value.expressionVal) = new ConstantExpressionString((yystack_[0].value.stringVal)); (yystack_[0].value.stringVal) = nullptr; }
 
     break;
 
   case 26:
 
-    { (yylhs.value.expressionVal) = new ConstantExpressionInteger((yystack_[0].value.integerVal));}
+    { (yylhs.value.expressionVal) = new ConstantExpressionIdentifier(*(yystack_[0].value.stringVal));}
 
     break;
 
   case 27:
 
-    { (yylhs.value.expressionVal) = new ConstantExpressionDouble((yystack_[0].value.doubleVal));}
+    { (yylhs.value.expressionVal) = new ConstantExpressionInteger((yystack_[0].value.integerVal));}
 
     break;
 
   case 28:
 
-    { (yylhs.value.expressionVal) = (yystack_[1].value.expressionVal); }
+    { (yylhs.value.expressionVal) = new ConstantExpressionDouble((yystack_[0].value.doubleVal));}
 
     break;
 
   case 29:
 
-    { (yylhs.value.expressionVal) = (yystack_[0].value.expressionVal); (yystack_[0].value.expressionVal) = nullptr; }
-
-    break;
-
-  case 30:
-
-    { (yylhs.value.expressionVal) = new ConstantExpressionString((yystack_[0].value.stringVal));}
+    { (yylhs.value.expressionVal) = (yystack_[1].value.expressionVal); }
 
     break;
 
@@ -1099,81 +1086,81 @@ namespace gcpql_nodefilter {
   }
 
 
-  const signed char Parser::yypact_ninf_ = -18;
+  const signed char Parser::yypact_ninf_ = -24;
 
   const signed char Parser::yytable_ninf_ = -1;
 
   const signed char
   Parser::yypact_[] =
   {
-      18,    18,   -18,   -18,   -18,   -18,    27,    18,    30,    23,
-     -18,    46,   -18,   -18,     0,    -4,    -6,   -18,    18,    18,
-      47,    47,    47,    47,    47,    47,    47,    47,    47,    47,
-      47,    40,   -18,   -18,   -18,    33,   -18,    47,    63,    63,
-      63,    63,    63,    63,    22,    22,   -18,   -18,   -18,   -18,
-      32,   -18,    37,    34,   -18,    40,   -18
+      21,    21,   -24,   -24,   -24,   -24,   -24,    43,    21,     3,
+      23,   -24,    63,   -24,   -24,    17,    -4,    25,   -24,    21,
+      21,    28,    28,    28,    28,    28,    28,    28,    28,    28,
+      28,    28,    28,   -24,   -24,   -24,    26,   -24,    28,    -5,
+      -5,    -5,    -5,    -5,    -5,    48,    48,   -24,   -24,   -24,
+      24,    22,   -11,   -24,    28,   -24
   };
 
   const unsigned char
   Parser::yydefact_[] =
   {
-       0,     0,     7,     8,    26,    27,    25,     0,     0,     2,
-       6,     0,    24,     9,     0,     0,     0,     1,     0,     0,
+       0,     0,     7,     8,    27,    28,    25,    26,     0,     0,
+       2,     6,     0,    24,     9,     0,     0,     0,     1,     0,
        0,     0,     0,     0,     0,     0,     0,     0,     0,     0,
-       0,     0,     5,    28,     3,     4,    25,     0,    10,    11,
-      12,    13,    14,    15,    19,    20,    21,    23,    22,    30,
-       0,    29,    17,     0,    16,     0,    18
+       0,     0,     0,     5,    29,     3,     4,    26,     0,    10,
+      11,    12,    13,    14,    15,    19,    20,    21,    23,    22,
+       0,    17,     0,    16,     0,    18
   };
 
   const signed char
   Parser::yypgoto_[] =
   {
-     -18,   -18,    28,   -18,    17,    -5,   -17,   -18
+     -24,   -24,    51,   -24,     9,    -6,   -23
   };
 
   const signed char
   Parser::yydefgoto_[] =
   {
-      -1,     8,     9,    10,    50,    11,    12,    52
+      -1,     9,    10,    11,    50,    12,    13
   };
 
   const unsigned char
   Parser::yytable_[] =
   {
-      18,    19,    16,    20,    21,    22,    23,    24,    25,    26,
-      27,    28,    29,    30,    51,    38,    39,    40,    41,    42,
-      43,    44,    45,    46,    47,    48,     1,    18,    19,    13,
-      17,    33,    53,    32,    14,    15,    31,    18,    51,    28,
-      29,    30,     2,     3,     4,     5,    34,    35,     6,    26,
-      27,    28,    29,    30,     7,    20,    21,    22,    23,    24,
-      25,    26,    27,    28,    29,    30,     4,     5,    49,    54,
-      36,    33,    56,     4,     5,    55,    37,    36,    26,    27,
-      28,    29,    30,    37
+      19,    20,    17,    18,    27,    28,    29,    30,    31,    51,
+      27,    28,    29,    30,    31,    39,    40,    41,    42,    43,
+      44,    45,    46,    47,    48,    49,    34,    19,    20,     1,
+      19,    51,    52,    33,    21,    22,    23,    24,    25,    26,
+      27,    28,    29,    30,    31,     2,     3,     4,     5,     6,
+      15,     7,    14,    32,     4,     5,     6,     8,    37,    16,
+      54,    53,    34,    55,    38,    29,    30,    31,     0,     0,
+      35,    36,    21,    22,    23,    24,    25,    26,    27,    28,
+      29,    30,    31
   };
 
-  const unsigned char
+  const signed char
   Parser::yycheck_[] =
   {
-       4,     5,     7,     9,    10,    11,    12,    13,    14,    15,
-      16,    17,    18,    19,    31,    20,    21,    22,    23,    24,
-      25,    26,    27,    28,    29,    30,     8,     4,     5,     1,
-       0,    37,    37,    37,     7,     7,    36,     4,    55,    17,
-      18,    19,    24,    25,    26,    27,    18,    19,    30,    15,
-      16,    17,    18,    19,    36,     9,    10,    11,    12,    13,
-      14,    15,    16,    17,    18,    19,    26,    27,    28,    37,
-      30,    37,    55,    26,    27,    38,    36,    30,    15,    16,
-      17,    18,    19,    36
+       4,     5,     8,     0,    15,    16,    17,    18,    19,    32,
+      15,    16,    17,    18,    19,    21,    22,    23,    24,    25,
+      26,    27,    28,    29,    30,    31,    37,     4,     5,     8,
+       4,    54,    38,    37,     9,    10,    11,    12,    13,    14,
+      15,    16,    17,    18,    19,    24,    25,    26,    27,    28,
+       7,    30,     1,    36,    26,    27,    28,    36,    30,     8,
+      38,    37,    37,    54,    36,    17,    18,    19,    -1,    -1,
+      19,    20,     9,    10,    11,    12,    13,    14,    15,    16,
+      17,    18,    19
   };
 
   const unsigned char
   Parser::yystos_[] =
   {
-       0,     8,    24,    25,    26,    27,    30,    36,    40,    41,
-      42,    44,    45,    41,     7,    41,    44,     0,     4,     5,
-       9,    10,    11,    12,    13,    14,    15,    16,    17,    18,
-      19,    36,    37,    37,    41,    41,    30,    36,    44,    44,
-      44,    44,    44,    44,    44,    44,    44,    44,    44,    28,
-      43,    45,    46,    44,    37,    38,    43
+       0,     8,    24,    25,    26,    27,    28,    30,    36,    40,
+      41,    42,    44,    45,    41,     7,    41,    44,     0,     4,
+       5,     9,    10,    11,    12,    13,    14,    15,    16,    17,
+      18,    19,    36,    37,    37,    41,    41,    30,    36,    44,
+      44,    44,    44,    44,    44,    44,    44,    44,    44,    44,
+      43,    45,    44,    37,    38,    43
   };
 
   const unsigned char
@@ -1181,8 +1168,7 @@ namespace gcpql_nodefilter {
   {
        0,    39,    40,    41,    41,    41,    41,    41,    41,    41,
       42,    42,    42,    42,    42,    42,    42,    43,    43,    44,
-      44,    44,    44,    44,    44,    45,    45,    45,    45,    46,
-      46
+      44,    44,    44,    44,    44,    45,    45,    45,    45,    45
   };
 
   const unsigned char
@@ -1190,8 +1176,7 @@ namespace gcpql_nodefilter {
   {
        0,     2,     1,     3,     3,     3,     1,     1,     1,     2,
        3,     3,     3,     3,     3,     3,     5,     1,     3,     3,
-       3,     3,     3,     3,     1,     1,     1,     1,     3,     1,
-       1
+       3,     3,     3,     3,     1,     1,     1,     1,     1,     3
   };
 
 
@@ -1209,7 +1194,7 @@ namespace gcpql_nodefilter {
   "\"double\"", "\"string\"", "NAME", "IDENTIFIER", "BOOL", "'|'", "'&'",
   "'^'", "UMINUS", "'('", "')'", "','", "$accept", "filter_body",
   "logical_expr", "comparation_expr", "constant_array", "math_expr",
-  "math_constant", "constant", YY_NULL
+  "constant", YY_NULL
   };
 
 #if YYDEBUG
@@ -1218,8 +1203,7 @@ namespace gcpql_nodefilter {
   {
        0,   114,   114,   117,   118,   119,   120,   121,   122,   123,
      127,   128,   129,   130,   131,   132,   133,   142,   143,   147,
-     148,   149,   150,   151,   152,   157,   158,   159,   160,   164,
-     165
+     148,   149,   150,   151,   152,   156,   157,   158,   159,   160
   };
 
   // Print the state stack on the debug stream.
