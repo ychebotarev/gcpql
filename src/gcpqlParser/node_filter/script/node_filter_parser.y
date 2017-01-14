@@ -25,7 +25,7 @@
 %initial-action
 {
     // initialize the initial location object
-    @$.begin.filename = @$.end.filename = &driver.streamname;
+    //@$.begin.filename = @$.end.filename = &driver.streamname;
 };
 
 %parse-param { class Driver& driver }
@@ -111,50 +111,49 @@
 
 %% 
 
-filter_body : logical_expr { runner.SetRootExpression($1); $1 = nullptr; };
+filter_body : logical_expr { runner.SetRootExpression($1); };
 
 logical_expr 
-	: logical_expr OP_AND logical_expr { $$ = new LogicalExpressionAnd($1,$3); $1 = NULL; $3 = nullptr; }
-	| logical_expr OP_OR logical_expr { $$ = new LogicalExpressionOr($1,$3); $1 = NULL; $3 = nullptr; }
-	| '(' logical_expr ')' { $$ = $2; $2 = nullptr; };
-	| comparation_expr { $$ = $1; $1 = nullptr; }
+	: logical_expr OP_AND logical_expr { $$ = new LogicalExpressionAnd($1,$3); }
+	| logical_expr OP_OR logical_expr { $$ = new LogicalExpressionOr($1,$3); }
+	| '(' logical_expr ')' { $$ = $2; };
+	| comparation_expr { $$ = $1; }
 	| CONSTANT_TRUE { $$ = new ConstantExpressionInteger(1); }
 	| CONSTANT_FALSE { $$ = new ConstantExpressionInteger(0); }
-	| OP_NOT logical_expr { $$ = new LogicalExpressionNot($2); $2 = nullptr; }
+	| OP_NOT logical_expr { $$ = new LogicalExpressionNot($2); }
 	;
 
 comparation_expr 
-	: math_expr OP_GT math_expr { $$ = new ComparationExpressionGt($1, $3); $1 = nullptr; $3 = nullptr; }
-	| math_expr OP_GT_EQ math_expr { $$ = new ComparationExpressionGtEq($1, $3); $1 = NULL; $3 = nullptr; }
-	| math_expr OP_LT math_expr { $$ = new ComparationExpressionLt($1, $3); $1 = nullptr; $3 = nullptr; }
-	| math_expr OP_LT_EQ math_expr { $$ = new ComparationExpressionLtEq($1, $3); $1 = nullptr; $3 = nullptr; }
-	| math_expr OP_EQ math_expr { $$ = new ComparationExpressionEq($1, $3); $1 = nullptr; $3 = nullptr; }
-	| math_expr OP_NOT_EQ math_expr { $$ = new ComparationExpressionNotEq($1, $3); $1 = nullptr; $3 = NULL; }
+	: math_expr OP_GT math_expr { $$ = new ComparationExpressionGt($1, $3); }
+	| math_expr OP_GT_EQ math_expr { $$ = new ComparationExpressionGtEq($1, $3); }
+	| math_expr OP_LT math_expr { $$ = new ComparationExpressionLt($1, $3); }
+	| math_expr OP_LT_EQ math_expr { $$ = new ComparationExpressionLtEq($1, $3); }
+	| math_expr OP_EQ math_expr { $$ = new ComparationExpressionEq($1, $3); }
+	| math_expr OP_NOT_EQ math_expr { $$ = new ComparationExpressionNotEq($1, $3); }
 	| IDENTIFIER OP_IN '(' constant_array ')' 
 		{
-			auto constant_string = new ConstantExpressionIdentifier(*$1); 
+			auto constant_string = new ConstantExpressionIdentifier($1); 
 			$$ = new ValueInCollectionFunction(constant_string, $4); 
-			$1 = nullptr; $4 = nullptr; 
 		}
 	;
 
 constant_array
-	: constant { $$ = new ConstantsCollection(); $$->Add($1); $1 = nullptr; }
-	| constant ',' constant_array { $$ = $3; $$->Add($1); $1 = nullptr; $3 = nullptr; }
+	: constant { $$ = new ConstantsCollection(); $$->Add($1); }
+	| constant ',' constant_array { $$ = $3; $$->Add($1); }
 	;
 
 math_expr 
-	: math_expr OP_PLUS math_expr { $$ = new MathExpressionAdd($1, $3); $1 = nullptr; $3 = nullptr; }
-	| math_expr OP_MINUS math_expr { $$ = new MathExpressionSub($1, $3); $1 = nullptr; $3 = nullptr; }
-	| math_expr OP_MUL math_expr { $$ = new MathExpressionMul($1, $3); $1 = nullptr; $3 = nullptr; }
-	| math_expr OP_DIV math_expr { $$ = new MathExpressionDiv($1, $3); $1 = nullptr; $3 = nullptr; }
-    | math_expr OP_DIVINT math_expr { $$ = new MathExpressionDivInt($1, $3); $1 = nullptr; $3 = nullptr; }
+	: math_expr OP_PLUS math_expr { $$ = new MathExpressionAdd($1, $3); }
+	| math_expr OP_MINUS math_expr { $$ = new MathExpressionSub($1, $3); }
+	| math_expr OP_MUL math_expr { $$ = new MathExpressionMul($1, $3); }
+	| math_expr OP_DIV math_expr { $$ = new MathExpressionDiv($1, $3); }
+    | math_expr OP_DIVINT math_expr { $$ = new MathExpressionDivInt($1, $3); }
 	| constant
 	;
 
 constant
-	: STRING_CONSTANT { $$ = new ConstantExpressionString($1); $1 = nullptr; }
-	| IDENTIFIER { $$ = new ConstantExpressionIdentifier(*$1);}
+	: STRING_CONSTANT { $$ = new ConstantExpressionString($1); }
+	| IDENTIFIER { $$ = new ConstantExpressionIdentifier($1);}
 	| INTEGER { $$ = new ConstantExpressionInteger($1);}
 	| DOUBLE { $$ = new ConstantExpressionDouble($1);}
 	| '(' math_expr ')' { $$ = $2; };

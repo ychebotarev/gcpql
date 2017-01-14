@@ -10,9 +10,16 @@
 #include "src/gcpqlParser/node_filter/node_filter_runner.h"
 #include "src/gcpqlParser/node_filter/node_filter_context.h"
 
-class FilterContextMock : public gcpql_nodefilter::IFilterContext
+using namespace gcpql_nodefilter;
+
+class FilterContextMock : public IFilterContext
 {
 public:
+	FilterContextMock() {
+		string_a = "a";
+		string_b = "b";
+		string_c = "c";
+	}
 	virtual AstVariant GetPropertyValue(const std::string& property_name) const
 	{
 		if (property_name == "int_property_5") return AstVariant(5);
@@ -29,12 +36,9 @@ public:
 		return AstVariant(0);
 	};
 
-	static const gcpql_nodefilter::IFilterContext& Instance()
+	static const IFilterContext& Instance()
 	{
 		static FilterContextMock mock;
-		mock.string_a = "a";
-		mock.string_b = "b";
-		mock.string_c = "c";
 		return mock;
 	}
 private:
@@ -47,20 +51,36 @@ void RunQuery(const std::string& script)
 {
 	gcpql_nodefilter::Driver driver;
 	auto runner = driver.parse_string(script);
-	auto result = runner->Execute(FilterContextMock::Instance());
+	FilterContextMock context;
+	auto result = runner->Execute(context);
+	delete runner;
+}
+
+void CompileQuery(const std::string& script)
+{
+	gcpql_nodefilter::Driver driver;
+	auto runner = driver.parse_string(script);
+	delete runner;
 }
 
 int main()
 {
-	auto start = std::chrono::high_resolution_clock::now();
+	{
+		//CompileQuery("true and true or fal");
+		//RunQuery("int_property_100 > 1d");
+		auto start = std::chrono::high_resolution_clock::now();
 
-	for (auto size = 0; size < 1000000; ++size) {
-		RunQuery("int_property_100 > int_property_10 and (int_property_5 > int_property_10 or int_property_5 >= int_property_5)");
+		size_t interation = 1000000;
+
+		for (auto size = 0; size < interation; ++size) {
+			RunQuery("int_property_100 > int_property_10 and (int_property_5 > int_property_10 or int_property_5 >= int_property_5)");
+		}
+
+		auto end = std::chrono::high_resolution_clock::now();
+		std::chrono::duration<double> diff = end - start;
+		std::cout << "Time to run " << interation << " interations is compile and execute is  : " << (diff.count() * 1000.0 / 100000.0) << " ms\n";
 	}
-
-	auto end = std::chrono::high_resolution_clock::now();
-	std::chrono::duration<double> diff = end - start;
-	std::cout << "Time to run 10000 interations is compile and execute is  : " << (diff.count() * 1000.0 / 100000.0) << " s\n";
+	//_CrtDumpMemoryLeaks();
 
     return 0;
 }

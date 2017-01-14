@@ -33,16 +33,15 @@ namespace gcpql_nodefilter {
 
 	class ConstantExpressionIdentifier : public BaseExpression {
 	public:
-		ConstantExpressionIdentifier(const std::string& str) {
-			this->value = str;
+		ConstantExpressionIdentifier(std::string* value_) : value(value_){
 		}
 
 		AstVariant Execute(const IFilterContext& context) {
-			return context.GetPropertyValue(value);
+			return context.GetPropertyValue(*value.get());
 		}
 
 	private:
-		std::string value;
+		std::unique_ptr<std::string> value;
 	};
 
 	class ConstantExpressionString : public BaseExpression {

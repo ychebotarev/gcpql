@@ -23,24 +23,17 @@ public:
     /// enable debug output in the bison parser
     bool trace_parsing;
 
-    /// stream name (file or input stream) used for error messages.
-    std::string streamname;
-
     /** Invoke the scanner and parser for a stream.
      * @param in	input stream
-     * @param sname	stream name for error messages
      * @return		Expression context if successfully parsed, NULL is there was parsing error
      */
-	class Runner* parse_stream(std::istream& in,
-		      const std::string& sname = "stream input");
+	class Runner* parse_stream(std::istream& in);
 
     /** Invoke the scanner and parser on an input string.
      * @param input	input string
-     * @param sname	stream name for error messages
      * @return		Expression context if successfully parsed, NULL is there was parsing error
      */
-	class Runner* parse_string(const std::string& input,
-		      const std::string& sname = "string stream");
+	class Runner* parse_string(const std::string& input);
 
 
     /** Error handling with associated line number. This can be modified to

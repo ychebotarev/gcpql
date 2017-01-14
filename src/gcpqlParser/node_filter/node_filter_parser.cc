@@ -553,7 +553,7 @@ namespace gcpql_nodefilter {
     
 {
     // initialize the initial location object
-    yyla.location.begin.filename = yyla.location.end.filename = &driver.streamname;
+    //@$.begin.filename = @$.end.filename = &driver.streamname;
 }
 
 
@@ -667,31 +667,31 @@ namespace gcpql_nodefilter {
           {
   case 2:
 
-    { runner.SetRootExpression((yystack_[0].value.expressionVal)); (yystack_[0].value.expressionVal) = nullptr; }
+    { runner.SetRootExpression((yystack_[0].value.expressionVal)); }
 
     break;
 
   case 3:
 
-    { (yylhs.value.expressionVal) = new LogicalExpressionAnd((yystack_[2].value.expressionVal),(yystack_[0].value.expressionVal)); (yystack_[2].value.expressionVal) = NULL; (yystack_[0].value.expressionVal) = nullptr; }
+    { (yylhs.value.expressionVal) = new LogicalExpressionAnd((yystack_[2].value.expressionVal),(yystack_[0].value.expressionVal)); }
 
     break;
 
   case 4:
 
-    { (yylhs.value.expressionVal) = new LogicalExpressionOr((yystack_[2].value.expressionVal),(yystack_[0].value.expressionVal)); (yystack_[2].value.expressionVal) = NULL; (yystack_[0].value.expressionVal) = nullptr; }
+    { (yylhs.value.expressionVal) = new LogicalExpressionOr((yystack_[2].value.expressionVal),(yystack_[0].value.expressionVal)); }
 
     break;
 
   case 5:
 
-    { (yylhs.value.expressionVal) = (yystack_[1].value.expressionVal); (yystack_[1].value.expressionVal) = nullptr; }
+    { (yylhs.value.expressionVal) = (yystack_[1].value.expressionVal); }
 
     break;
 
   case 6:
 
-    { (yylhs.value.expressionVal) = (yystack_[0].value.expressionVal); (yystack_[0].value.expressionVal) = nullptr; }
+    { (yylhs.value.expressionVal) = (yystack_[0].value.expressionVal); }
 
     break;
 
@@ -709,107 +709,106 @@ namespace gcpql_nodefilter {
 
   case 9:
 
-    { (yylhs.value.expressionVal) = new LogicalExpressionNot((yystack_[0].value.expressionVal)); (yystack_[0].value.expressionVal) = nullptr; }
+    { (yylhs.value.expressionVal) = new LogicalExpressionNot((yystack_[0].value.expressionVal)); }
 
     break;
 
   case 10:
 
-    { (yylhs.value.expressionVal) = new ComparationExpressionGt((yystack_[2].value.expressionVal), (yystack_[0].value.expressionVal)); (yystack_[2].value.expressionVal) = nullptr; (yystack_[0].value.expressionVal) = nullptr; }
+    { (yylhs.value.expressionVal) = new ComparationExpressionGt((yystack_[2].value.expressionVal), (yystack_[0].value.expressionVal)); }
 
     break;
 
   case 11:
 
-    { (yylhs.value.expressionVal) = new ComparationExpressionGtEq((yystack_[2].value.expressionVal), (yystack_[0].value.expressionVal)); (yystack_[2].value.expressionVal) = NULL; (yystack_[0].value.expressionVal) = nullptr; }
+    { (yylhs.value.expressionVal) = new ComparationExpressionGtEq((yystack_[2].value.expressionVal), (yystack_[0].value.expressionVal)); }
 
     break;
 
   case 12:
 
-    { (yylhs.value.expressionVal) = new ComparationExpressionLt((yystack_[2].value.expressionVal), (yystack_[0].value.expressionVal)); (yystack_[2].value.expressionVal) = nullptr; (yystack_[0].value.expressionVal) = nullptr; }
+    { (yylhs.value.expressionVal) = new ComparationExpressionLt((yystack_[2].value.expressionVal), (yystack_[0].value.expressionVal)); }
 
     break;
 
   case 13:
 
-    { (yylhs.value.expressionVal) = new ComparationExpressionLtEq((yystack_[2].value.expressionVal), (yystack_[0].value.expressionVal)); (yystack_[2].value.expressionVal) = nullptr; (yystack_[0].value.expressionVal) = nullptr; }
+    { (yylhs.value.expressionVal) = new ComparationExpressionLtEq((yystack_[2].value.expressionVal), (yystack_[0].value.expressionVal)); }
 
     break;
 
   case 14:
 
-    { (yylhs.value.expressionVal) = new ComparationExpressionEq((yystack_[2].value.expressionVal), (yystack_[0].value.expressionVal)); (yystack_[2].value.expressionVal) = nullptr; (yystack_[0].value.expressionVal) = nullptr; }
+    { (yylhs.value.expressionVal) = new ComparationExpressionEq((yystack_[2].value.expressionVal), (yystack_[0].value.expressionVal)); }
 
     break;
 
   case 15:
 
-    { (yylhs.value.expressionVal) = new ComparationExpressionNotEq((yystack_[2].value.expressionVal), (yystack_[0].value.expressionVal)); (yystack_[2].value.expressionVal) = nullptr; (yystack_[0].value.expressionVal) = NULL; }
+    { (yylhs.value.expressionVal) = new ComparationExpressionNotEq((yystack_[2].value.expressionVal), (yystack_[0].value.expressionVal)); }
 
     break;
 
   case 16:
 
     {
-			auto constant_string = new ConstantExpressionIdentifier(*(yystack_[4].value.stringVal)); 
+			auto constant_string = new ConstantExpressionIdentifier((yystack_[4].value.stringVal)); 
 			(yylhs.value.expressionVal) = new ValueInCollectionFunction(constant_string, (yystack_[1].value.collectionVal)); 
-			(yystack_[4].value.stringVal) = nullptr; (yystack_[1].value.collectionVal) = nullptr; 
 		}
 
     break;
 
   case 17:
 
-    { (yylhs.value.collectionVal) = new ConstantsCollection(); (yylhs.value.collectionVal)->Add((yystack_[0].value.expressionVal)); (yystack_[0].value.expressionVal) = nullptr; }
+    { (yylhs.value.collectionVal) = new ConstantsCollection(); (yylhs.value.collectionVal)->Add((yystack_[0].value.expressionVal)); }
 
     break;
 
   case 18:
 
-    { (yylhs.value.collectionVal) = (yystack_[0].value.collectionVal); (yylhs.value.collectionVal)->Add((yystack_[2].value.expressionVal)); (yystack_[2].value.expressionVal) = nullptr; (yystack_[0].value.collectionVal) = nullptr; }
+    { (yylhs.value.collectionVal) = (yystack_[0].value.collectionVal); (yylhs.value.collectionVal)->Add((yystack_[2].value.expressionVal)); }
 
     break;
 
   case 19:
 
-    { (yylhs.value.expressionVal) = new MathExpressionAdd((yystack_[2].value.expressionVal), (yystack_[0].value.expressionVal)); (yystack_[2].value.expressionVal) = nullptr; (yystack_[0].value.expressionVal) = nullptr; }
+    { (yylhs.value.expressionVal) = new MathExpressionAdd((yystack_[2].value.expressionVal), (yystack_[0].value.expressionVal)); }
 
     break;
 
   case 20:
 
-    { (yylhs.value.expressionVal) = new MathExpressionSub((yystack_[2].value.expressionVal), (yystack_[0].value.expressionVal)); (yystack_[2].value.expressionVal) = nullptr; (yystack_[0].value.expressionVal) = nullptr; }
+    { (yylhs.value.expressionVal) = new MathExpressionSub((yystack_[2].value.expressionVal), (yystack_[0].value.expressionVal)); }
 
     break;
 
   case 21:
 
-    { (yylhs.value.expressionVal) = new MathExpressionMul((yystack_[2].value.expressionVal), (yystack_[0].value.expressionVal)); (yystack_[2].value.expressionVal) = nullptr; (yystack_[0].value.expressionVal) = nullptr; }
+    { (yylhs.value.expressionVal) = new MathExpressionMul((yystack_[2].value.expressionVal), (yystack_[0].value.expressionVal)); }
 
     break;
 
   case 22:
 
-    { (yylhs.value.expressionVal) = new MathExpressionDiv((yystack_[2].value.expressionVal), (yystack_[0].value.expressionVal)); (yystack_[2].value.expressionVal) = nullptr; (yystack_[0].value.expressionVal) = nullptr; }
+    { (yylhs.value.expressionVal) = new MathExpressionDiv((yystack_[2].value.expressionVal), (yystack_[0].value.expressionVal)); }
 
     break;
 
   case 23:
 
-    { (yylhs.value.expressionVal) = new MathExpressionDivInt((yystack_[2].value.expressionVal), (yystack_[0].value.expressionVal)); (yystack_[2].value.expressionVal) = nullptr; (yystack_[0].value.expressionVal) = nullptr; }
+    { (yylhs.value.expressionVal) = new MathExpressionDivInt((yystack_[2].value.expressionVal), (yystack_[0].value.expressionVal)); }
 
     break;
 
   case 25:
 
-    { (yylhs.value.expressionVal) = new ConstantExpressionString((yystack_[0].value.stringVal)); (yystack_[0].value.stringVal) = nullptr; }
+    { (yylhs.value.expressionVal) = new ConstantExpressionString((yystack_[0].value.stringVal)); }
 
     break;
 
   case 26:
 
-    { (yylhs.value.expressionVal) = new ConstantExpressionIdentifier(*(yystack_[0].value.stringVal));}
+    { (yylhs.value.expressionVal) = new ConstantExpressionIdentifier((yystack_[0].value.stringVal));}
 
     break;
 
@@ -1202,8 +1201,8 @@ namespace gcpql_nodefilter {
   Parser::yyrline_[] =
   {
        0,   114,   114,   117,   118,   119,   120,   121,   122,   123,
-     127,   128,   129,   130,   131,   132,   133,   142,   143,   147,
-     148,   149,   150,   151,   152,   156,   157,   158,   159,   160
+     127,   128,   129,   130,   131,   132,   133,   141,   142,   146,
+     147,   148,   149,   150,   151,   155,   156,   157,   158,   159
   };
 
   // Print the state stack on the debug stream.
