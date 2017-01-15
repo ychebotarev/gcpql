@@ -1,0 +1,2 @@
+c:\tools\win_flex_bison\win_flex -L -o ..\gcpql_query_scanner.cc gcpql_query_scanner.l
+c:\tools\win_flex_bison\win_bison --no-lines -o ..\gcpql_query_parser.cc --defines=..\gcpql_query_parser.h gcpql_query_parser.y

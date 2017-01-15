@@ -135,6 +135,18 @@
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClInclude Include="common\AstVariant.h" />
+    <ClInclude Include="gcpql_query\gcpql_query_driver.h" />
+    <ClInclude Include="gcpql_query\gcpql_query_parser.h" />
+    <ClInclude Include="gcpql_query\gcpql_query_runner.h" />
+    <ClInclude Include="gcpql_query\gcpql_query_scanner.h" />
+    <ClInclude Include="gcpql_query\graph\graph_edge.h" />
+    <ClInclude Include="gcpql_query\graph\graph_node.h" />
+    <ClInclude Include="gcpql_query\graph\graph_path.h" />
+    <ClInclude Include="gcpql_query\graph\graph_relation.h" />
+    <ClInclude Include="gcpql_query\location.hh" />
+    <ClInclude Include="gcpql_query\gcpql_query_context.h" />
+    <ClInclude Include="gcpql_query\position.hh" />
+    <ClInclude Include="gcpql_query\stack.hh" />
     <ClInclude Include="node_filter\Expression\base_expression.h" />
     <ClInclude Include="node_filter\Expression\comparation_expression.h" />
     <ClInclude Include="node_filter\Expression\constants_collection.h" />
@@ -155,6 +167,9 @@
     <ClInclude Include="targetver.h" />
   </ItemGroup>
   <ItemGroup>
+    <ClCompile Include="gcpql_query\gcpql_query_driver.cc" />
+    <ClCompile Include="gcpql_query\gcpql_query_parser.cc" />
+    <ClCompile Include="gcpql_query\gcpql_query_scanner.cc" />
     <ClCompile Include="node_filter\node_filter_driver.cc" />
     <ClCompile Include="node_filter\node_filter_parser.cc" />
     <ClCompile Include="node_filter\node_filter_scanner.cc" />
@@ -166,6 +181,8 @@
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
+    <None Include="gcpql_query\script\gcpql_query_parser.y" />
+    <None Include="gcpql_query\script\gcpql_query_scanner.l" />
     <None Include="node_filter\script\node_filter_parser.y" />
     <None Include="node_filter\script\node_filter_scanner.l" />
   </ItemGroup>

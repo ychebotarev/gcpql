@@ -25,6 +25,15 @@
     <Filter Include="node_filter\Expression">
       <UniqueIdentifier>{d001efae-6347-4535-862d-8aa99ed9bae2}</UniqueIdentifier>
     </Filter>
+    <Filter Include="gcpql">
+      <UniqueIdentifier>{c18fa211-a338-4dd4-88d8-0162739697a2}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="gcpql\scripts">
+      <UniqueIdentifier>{f590ad9c-9128-4ce9-a149-df34d9127d7e}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="gcpql\graph">
+      <UniqueIdentifier>{21428e68-b06e-4f23-bca4-ac35ba53ad62}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="stdafx.h">
@@ -84,6 +93,42 @@
     <ClInclude Include="node_filter\Expression\constants_collection.h">
       <Filter>node_filter\Expression</Filter>
     </ClInclude>
+    <ClInclude Include="gcpql_query\graph\graph_edge.h">
+      <Filter>gcpql\graph</Filter>
+    </ClInclude>
+    <ClInclude Include="gcpql_query\graph\graph_node.h">
+      <Filter>gcpql\graph</Filter>
+    </ClInclude>
+    <ClInclude Include="gcpql_query\graph\graph_path.h">
+      <Filter>gcpql\graph</Filter>
+    </ClInclude>
+    <ClInclude Include="gcpql_query\graph\graph_relation.h">
+      <Filter>gcpql\graph</Filter>
+    </ClInclude>
+    <ClInclude Include="gcpql_query\gcpql_query_driver.h">
+      <Filter>gcpql</Filter>
+    </ClInclude>
+    <ClInclude Include="gcpql_query\gcpql_query_parser.h">
+      <Filter>gcpql</Filter>
+    </ClInclude>
+    <ClInclude Include="gcpql_query\gcpql_query_runner.h">
+      <Filter>gcpql</Filter>
+    </ClInclude>
+    <ClInclude Include="gcpql_query\gcpql_query_scanner.h">
+      <Filter>gcpql</Filter>
+    </ClInclude>
+    <ClInclude Include="gcpql_query\location.hh">
+      <Filter>gcpql</Filter>
+    </ClInclude>
+    <ClInclude Include="gcpql_query\position.hh">
+      <Filter>gcpql</Filter>
+    </ClInclude>
+    <ClInclude Include="gcpql_query\stack.hh">
+      <Filter>gcpql</Filter>
+    </ClInclude>
+    <ClInclude Include="gcpql_query\gcpql_query_context.h">
+      <Filter>gcpql</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="stdafx.cpp">
@@ -98,6 +143,15 @@
     <ClCompile Include="node_filter\node_filter_scanner.cc">
       <Filter>node_filter</Filter>
     </ClCompile>
+    <ClCompile Include="gcpql_query\gcpql_query_driver.cc">
+      <Filter>gcpql</Filter>
+    </ClCompile>
+    <ClCompile Include="gcpql_query\gcpql_query_parser.cc">
+      <Filter>gcpql</Filter>
+    </ClCompile>
+    <ClCompile Include="gcpql_query\gcpql_query_scanner.cc">
+      <Filter>gcpql</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <None Include="node_filter\script\node_filter_parser.y">
@@ -105,6 +159,12 @@
     </None>
     <None Include="node_filter\script\node_filter_scanner.l">
       <Filter>node_filter\scripts</Filter>
+    </None>
+    <None Include="gcpql_query\script\gcpql_query_parser.y">
+      <Filter>gcpql\scripts</Filter>
+    </None>
+    <None Include="gcpql_query\script\gcpql_query_scanner.l">
+      <Filter>gcpql\scripts</Filter>
     </None>
   </ItemGroup>
 </Project>
