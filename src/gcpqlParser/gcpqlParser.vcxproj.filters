@@ -152,6 +152,9 @@
     <ClCompile Include="gcpql_query\gcpql_query_scanner.cc">
       <Filter>gcpql</Filter>
     </ClCompile>
+    <ClCompile Include="gcpql_query\graph\graph_relation.cpp">
+      <Filter>gcpql\graph</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <None Include="node_filter\script\node_filter_parser.y">

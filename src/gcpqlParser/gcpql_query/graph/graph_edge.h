@@ -7,10 +7,13 @@ namespace gcpql_query {
     
     class GraphEdge {
     public:
-        GraphEdge(std::string* type_) : type(type_) {
-
+        GraphEdge(std::string* name_) : name(name_) {
+        }
+        
+        const std::string& GetName() const {
+            return *name.get();
         }
     private:
-        std::unique_ptr<std::string> type;
+        std::unique_ptr<std::string> name;
     };
 }

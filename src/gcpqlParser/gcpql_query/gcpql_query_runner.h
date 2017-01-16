@@ -7,16 +7,20 @@ namespace gcpql_query {
 	class Runner
 	{
 	public:
-		void SetGraphPath(GraphPath* _path) {
-			root = std::unique_ptr<GraphPath>(_path);
+		void SetGraphPath(GraphPath* path_) {
+			path = std::unique_ptr<GraphPath>(path_);
 		}
 
 		AstVariant Execute(const IQueryContext& context) {
 			return AstVariant(true);
 		}
 
+        const GraphPath* GetPath() const {
+            return path.get();
+        }
+
 	private:
-		std::unique_ptr<GraphPath> root;
+		std::unique_ptr<GraphPath> path;
 
 	};
 }//end of gcpql_query namespace

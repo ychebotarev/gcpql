@@ -16,8 +16,9 @@ namespace gcpql_query {
         }
         GraphRelation(GraphNode* from_, GraphNode *to_)
             : from(from_), to(to_) {
-
         }
+
+        std::string ToString() const;
     private:
         std::unique_ptr<GraphNode> from;
         std::unique_ptr<GraphNode> to;

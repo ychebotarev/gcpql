@@ -19,6 +19,17 @@ namespace gcpql_query {
         void Add(GraphRelation* relation) {
             relations.push_back(std::unique_ptr<GraphRelation>(relation));
         }
+
+        std::string ToString() const{
+            std::string path;
+            for (const auto& relation : relations)
+            {
+                if (path.length()) path += ",";
+                path += relation->ToString();
+            }
+
+            return path;
+        }
     private:
         std::vector<std::unique_ptr<GraphRelation>> relations;
     };
