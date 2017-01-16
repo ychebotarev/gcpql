@@ -5,7 +5,7 @@ VisualStudioVersion = 14.0.25420.1
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "gcpqlParser", "src\gcpqlParser\gcpqlParser.vcxproj", "{4724BAE4-920E-44AB-A4AE-8410F7AFE7D5}"
 EndProject
-Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "filterParser.Test", "Tests\filterParser.Test\filterParser.Test.vcxproj", "{967A0BB8-C835-4EEF-839B-8AFF224DC917}"
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "gcpqlParser.Test", "Tests\gcpqlParser.Test\gcpqlParser.Test.vcxproj", "{967A0BB8-C835-4EEF-839B-8AFF224DC917}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Tests", "Tests", "{050338DB-2095-4657-BEF2-BFC13754036B}"
 EndProject
