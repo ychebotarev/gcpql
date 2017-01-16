@@ -129,6 +129,9 @@
     <ClInclude Include="gcpql_query\gcpql_query_context.h">
       <Filter>gcpql</Filter>
     </ClInclude>
+    <ClInclude Include="common\disjoint_hash_set.h">
+      <Filter>common</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="stdafx.cpp">
@@ -153,6 +156,9 @@
       <Filter>gcpql</Filter>
     </ClCompile>
     <ClCompile Include="gcpql_query\graph\graph_relation.cpp">
+      <Filter>gcpql\graph</Filter>
+    </ClCompile>
+    <ClCompile Include="gcpql_query\graph\graph_path.cpp">
       <Filter>gcpql\graph</Filter>
     </ClCompile>
   </ItemGroup>

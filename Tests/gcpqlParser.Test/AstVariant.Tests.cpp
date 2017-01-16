@@ -5,7 +5,7 @@
 
 using namespace Microsoft::VisualStudio::CppUnitTestFramework;
 
-namespace filterParserTest
+namespace gcpqlParserTest
 {		
 	TEST_CLASS(AstVariantTests)
 	{

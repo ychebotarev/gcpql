@@ -6,7 +6,9 @@ using namespace Microsoft::VisualStudio::CppUnitTestFramework;
 #include "src/gcpqlParser/node_filter/node_filter_driver.h"
 #include "src/gcpqlParser/node_filter/node_filter_runner.h"
 
+#include "test_helpers.h"
 #include "FilterContextMock.h"
+
 
 namespace filterParserTest
 {		
@@ -190,36 +192,29 @@ namespace filterParserTest
 		{
 			gcpql_nodefilter::Driver driver;
 			auto runner = driver.parse_string(script);
-			Assert::IsNotNull(runner, StringToWString(script).c_str());
+			Assert::IsNotNull(runner, test_helpers::StringToWString(script).c_str());
 			auto result = runner->Execute(FilterContextMock::Instance());
-			Assert::IsTrue(result.Valid(), StringToWString(script).c_str());
-			Assert::IsTrue(result.Is<bool>(), StringToWString(script).c_str());
-			Assert::IsTrue(result.IsTrue(), StringToWString(script).c_str());
+			Assert::IsTrue(result.Valid(), test_helpers::StringToWString(script).c_str());
+			Assert::IsTrue(result.Is<bool>(), test_helpers::StringToWString(script).c_str());
+			Assert::IsTrue(result.IsTrue(), test_helpers::StringToWString(script).c_str());
 		}
 		
 		void ExpectFalse(const std::string& script)
 		{
 			gcpql_nodefilter::Driver driver;
 			auto runner = driver.parse_string(script);
-			Assert::IsNotNull(runner, StringToWString(script).c_str());
+			Assert::IsNotNull(runner, test_helpers::StringToWString(script).c_str());
 			auto result = runner->Execute(FilterContextMock::Instance());
-			Assert::IsTrue(result.Valid(), StringToWString(script).c_str());
-			Assert::IsTrue(result.Is<bool>(), StringToWString(script).c_str());
-			Assert::IsFalse(result.IsTrue(), StringToWString(script).c_str());
+			Assert::IsTrue(result.Valid(), test_helpers::StringToWString(script).c_str());
+			Assert::IsTrue(result.Is<bool>(), test_helpers::StringToWString(script).c_str());
+			Assert::IsFalse(result.IsTrue(), test_helpers::StringToWString(script).c_str());
 		}
 
 		void ExpectParsingError(const std::string& script)
 		{
 			gcpql_nodefilter::Driver driver;
 			auto runner = driver.parse_string(script);
-			Assert::IsNull(runner, StringToWString(script).c_str());
+			Assert::IsNull(runner, test_helpers::StringToWString(script).c_str());
 		}
-		
-		std::wstring StringToWString(const std::string& s)
-		{
-			std::wstring temp(s.length(), L' ');
-			std::copy(s.begin(), s.end(), temp.begin());
-			return temp;
-		}	
 	};
 }

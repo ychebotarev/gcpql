@@ -12,9 +12,7 @@ namespace gcpql_query {
         GraphPath() {
         }
 
-        bool IsValid() {
-            return true;
-        }
+        bool IsValid() const;
 
         void Add(GraphRelation* relation) {
             relations.push_back(std::unique_ptr<GraphRelation>(relation));

@@ -135,6 +135,7 @@
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClInclude Include="common\AstVariant.h" />
+    <ClInclude Include="common\disjoint_hash_set.h" />
     <ClInclude Include="gcpql_query\gcpql_query_driver.h" />
     <ClInclude Include="gcpql_query\gcpql_query_parser.h" />
     <ClInclude Include="gcpql_query\gcpql_query_runner.h" />
@@ -170,6 +171,7 @@
     <ClCompile Include="gcpql_query\gcpql_query_driver.cc" />
     <ClCompile Include="gcpql_query\gcpql_query_parser.cc" />
     <ClCompile Include="gcpql_query\gcpql_query_scanner.cc" />
+    <ClCompile Include="gcpql_query\graph\graph_path.cpp" />
     <ClCompile Include="gcpql_query\graph\graph_relation.cpp" />
     <ClCompile Include="node_filter\node_filter_driver.cc" />
     <ClCompile Include="node_filter\node_filter_parser.cc" />

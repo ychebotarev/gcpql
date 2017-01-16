@@ -19,6 +19,14 @@ namespace gcpql_query {
         }
 
         std::string ToString() const;
+
+        const GraphNode& From() const {
+            return *from;
+        }
+        
+        const GraphNode& To() const {
+            return *to;
+        }
     private:
         std::unique_ptr<GraphNode> from;
         std::unique_ptr<GraphNode> to;
