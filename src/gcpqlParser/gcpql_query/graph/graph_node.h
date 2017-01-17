@@ -6,6 +6,9 @@
 namespace gcpql_query {
 	class GraphNode {
 	public:
+        GraphNode() {
+        }
+
         GraphNode(std::string* type_) : type(type_) {
         }
         

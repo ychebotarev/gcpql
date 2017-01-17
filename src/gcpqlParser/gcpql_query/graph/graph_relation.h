@@ -4,13 +4,12 @@
 #include <string>
 
 #include "graph_node.h"
-#include "graph_edge.h"
 
 namespace gcpql_query {
 
     class GraphRelation {
     public:
-        GraphRelation(GraphNode* from_, GraphNode *to_, GraphEdge* edge_) 
+        GraphRelation(GraphNode* from_, GraphNode *to_, GraphNode* edge_)
             : from(from_), to(to_),  edge(edge_){
 
         }
@@ -30,6 +29,6 @@ namespace gcpql_query {
     private:
         std::unique_ptr<GraphNode> from;
         std::unique_ptr<GraphNode> to;
-        std::unique_ptr<GraphEdge> edge;
+        std::unique_ptr<GraphNode> edge;
     };
 }

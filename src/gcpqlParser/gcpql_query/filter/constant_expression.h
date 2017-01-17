@@ -1,7 +1,7 @@
 #pragma once
 #include "base_expression.h"
 
-namespace gcpql_nodefilter {
+namespace gcpql_query {
 
 	class ConstantExpressionDouble : public BaseExpression {
 	public:
@@ -9,7 +9,7 @@ namespace gcpql_nodefilter {
 			this->value = d;
 		}
 
-		AstVariant Execute(const IFilterContext& context) {
+		AstVariant Execute(const IQueryContext& context) {
 			return AstVariant(value);
 		}
 
@@ -23,7 +23,7 @@ namespace gcpql_nodefilter {
 			this->value = i;
 		}
 
-		AstVariant Execute(const IFilterContext& context) {
+		AstVariant Execute(const IQueryContext& context) {
 			return AstVariant(value);
 		}
 
@@ -36,7 +36,7 @@ namespace gcpql_nodefilter {
 		ConstantExpressionIdentifier(std::string* value_) : value(value_){
 		}
 
-		AstVariant Execute(const IFilterContext& context) {
+		AstVariant Execute(const IQueryContext& context) {
 			return context.GetPropertyValue(*value.get());
 		}
 
@@ -49,7 +49,7 @@ namespace gcpql_nodefilter {
 		ConstantExpressionString(std::string* value_):value(value_) {
 		}
 
-		AstVariant Execute(const IFilterContext& context) {
+		AstVariant Execute(const IQueryContext& context) {
 			return AstVariant(value.get());
 		}
 

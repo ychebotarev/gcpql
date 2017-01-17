@@ -41,6 +41,7 @@
 #include <vector>
 
 #include "graph\graph.h"
+#include "filter\expressions.h"
 
 
 
@@ -371,66 +372,136 @@ namespace gcpql_query {
     // User destructor.
     switch (yysym.type_get ())
     {
-            case 36: // IDENTIFIER
+            case 34: // "string"
 
 
         { delete (yysym.value.stringVal); }
 
         break;
 
-      case 47: // return_expr
+      case 36: // IDENTIFIER
+
+
+        { delete (yysym.value.stringVal); }
+
+        break;
+
+      case 48: // return_expr
+
+
+        { delete (yysym.value.graphQuery); }
+
+        break;
+
+      case 49: // filter_expr
+
+
+        { delete (yysym.value.graphFilterVal); }
+
+        break;
+
+      case 50: // graph_slice
+
+
+        { delete (yysym.value.sliceVal); }
+
+        break;
+
+      case 51: // return_nodes_list
+
+
+        { delete (yysym.value.sliceVal); }
+
+        break;
+
+      case 52: // return_node
+
+
+        { delete (yysym.value.nodeVal); }
+
+        break;
+
+      case 53: // select_expr
 
 
         { delete (yysym.value.pathVal); }
 
         break;
 
-      case 48: // select_expr
+      case 54: // graph_path
 
 
         { delete (yysym.value.pathVal); }
 
         break;
 
-      case 49: // graph_path
-
-
-        { delete (yysym.value.pathVal); }
-
-        break;
-
-      case 50: // graph_relation
+      case 55: // graph_relation
 
 
         { delete (yysym.value.relationVal); }
 
         break;
 
-      case 51: // node_from
+      case 56: // node_from
 
 
         { delete (yysym.value.nodeVal); }
 
         break;
 
-      case 52: // node_to
+      case 57: // node_to
 
 
         { delete (yysym.value.nodeVal); }
 
         break;
 
-      case 53: // edge
-
-
-        { delete (yysym.value.edgeVal); }
-
-        break;
-
-      case 54: // node
+      case 58: // edge
 
 
         { delete (yysym.value.nodeVal); }
+
+        break;
+
+      case 59: // node
+
+
+        { delete (yysym.value.nodeVal); }
+
+        break;
+
+      case 60: // logical_expr
+
+
+        { delete (yysym.value.expressionVal); }
+
+        break;
+
+      case 61: // comparation_expr
+
+
+        { delete (yysym.value.expressionVal); }
+
+        break;
+
+      case 62: // constant_array
+
+
+        { delete (yysym.value.collectionVal); }
+
+        break;
+
+      case 63: // math_expr
+
+
+        { delete (yysym.value.expressionVal); }
+
+        break;
+
+      case 64: // constant
+
+
+        { delete (yysym.value.expressionVal); }
 
         break;
 
@@ -681,73 +752,302 @@ namespace gcpql_query {
           {
   case 2:
 
-    { runner.SetGraphPath((yystack_[0].value.pathVal)); }
+    { runner.SetGraphQuery((yystack_[0].value.graphQuery)); }
+
+    break;
+
+  case 3:
+
+    { 
+		(yylhs.value.graphQuery) = new GraphQuery();
+		(yylhs.value.graphQuery)->SetGraphSlice((yystack_[3].value.sliceVal)); 
+		(yylhs.value.graphQuery)->SetGraphPath((yystack_[1].value.pathVal));
+		(yylhs.value.graphQuery)->SetFilter((yystack_[0].value.graphFilterVal));
+	}
 
     break;
 
   case 4:
 
-    { (yylhs.value.pathVal) = (yystack_[0].value.pathVal); }
+    {
+		(yylhs.value.graphQuery) = new GraphQuery();
+		(yylhs.value.graphQuery)->SetGraphSlice((yystack_[1].value.pathVal)); 
+		(yylhs.value.graphQuery)->SetGraphPath((yystack_[1].value.pathVal));
+		(yylhs.value.graphQuery)->SetFilter((yystack_[0].value.graphFilterVal));
+	}
 
     break;
 
   case 5:
 
-    { (yylhs.value.pathVal) = (yystack_[0].value.pathVal); }
+    { (yylhs.value.graphFilterVal) = new GraphPathFilter(); (yylhs.value.graphFilterVal)->SetRootExpression((yystack_[0].value.expressionVal)); }
 
     break;
 
   case 6:
 
-    { (yylhs.value.pathVal) = new GraphPath(); (yylhs.value.pathVal)->Add((yystack_[0].value.relationVal)); }
+    { (yylhs.value.graphFilterVal) = nullptr; }
 
     break;
 
   case 7:
 
-    { (yylhs.value.pathVal) = (yystack_[2].value.pathVal); (yylhs.value.pathVal)->Add((yystack_[0].value.relationVal)); }
+    { (yylhs.value.sliceVal) = new GraphSlice(); (yylhs.value.sliceVal)->Add(new GraphNode()); }
 
     break;
 
   case 8:
 
-    { (yylhs.value.relationVal) = new GraphRelation((yystack_[3].value.nodeVal), (yystack_[1].value.nodeVal),  (yystack_[2].value.edgeVal));}
+    { (yylhs.value.sliceVal) = (yystack_[0].value.sliceVal); }
 
     break;
 
   case 9:
 
-    { (yylhs.value.relationVal) = new GraphRelation((yystack_[2].value.nodeVal), (yystack_[1].value.nodeVal)); }
+    { (yylhs.value.sliceVal) = new GraphSlice(); (yylhs.value.sliceVal)->Add((yystack_[0].value.nodeVal)); }
 
     break;
 
   case 10:
 
-    { (yylhs.value.nodeVal) = (yystack_[0].value.nodeVal); }
+    { (yylhs.value.sliceVal) = (yystack_[2].value.sliceVal); (yylhs.value.sliceVal)->Add((yystack_[0].value.nodeVal)); }
 
     break;
 
   case 11:
 
-    { (yylhs.value.nodeVal) = (yystack_[0].value.nodeVal); }
+    { (yylhs.value.nodeVal) = new GraphNode((yystack_[0].value.stringVal));}
 
     break;
 
   case 12:
 
-    { (yylhs.value.edgeVal) = new GraphEdge((yystack_[0].value.stringVal)); }
+    { (yylhs.value.nodeVal) = new GraphNode((yystack_[2].value.stringVal), (yystack_[0].value.stringVal));}
 
     break;
 
   case 13:
 
-    { (yylhs.value.nodeVal) = new GraphNode((yystack_[0].value.stringVal));}
+    { (yylhs.value.pathVal) = (yystack_[0].value.pathVal); }
 
     break;
 
   case 14:
 
+    { (yylhs.value.pathVal) = (yystack_[0].value.pathVal); }
+
+    break;
+
+  case 15:
+
+    { (yylhs.value.pathVal) = new GraphPath(); (yylhs.value.pathVal)->Add((yystack_[0].value.relationVal)); }
+
+    break;
+
+  case 16:
+
+    { (yylhs.value.pathVal) = (yystack_[2].value.pathVal); (yylhs.value.pathVal)->Add((yystack_[0].value.relationVal)); }
+
+    break;
+
+  case 17:
+
+    { (yylhs.value.relationVal) = new GraphRelation((yystack_[3].value.nodeVal), (yystack_[1].value.nodeVal),  (yystack_[2].value.nodeVal));}
+
+    break;
+
+  case 18:
+
+    { (yylhs.value.relationVal) = new GraphRelation((yystack_[2].value.nodeVal), (yystack_[1].value.nodeVal)); }
+
+    break;
+
+  case 19:
+
+    { (yylhs.value.nodeVal) = (yystack_[0].value.nodeVal); }
+
+    break;
+
+  case 20:
+
+    { (yylhs.value.nodeVal) = (yystack_[0].value.nodeVal); }
+
+    break;
+
+  case 21:
+
+    { (yylhs.value.nodeVal) = new GraphNode((yystack_[0].value.stringVal)); }
+
+    break;
+
+  case 22:
+
+    { (yylhs.value.nodeVal) = new GraphNode((yystack_[0].value.stringVal));}
+
+    break;
+
+  case 23:
+
     { (yylhs.value.nodeVal) = new GraphNode((yystack_[2].value.stringVal), (yystack_[0].value.stringVal));}
+
+    break;
+
+  case 24:
+
+    { (yylhs.value.expressionVal) = new LogicalExpressionAnd((yystack_[2].value.expressionVal),(yystack_[0].value.expressionVal)); }
+
+    break;
+
+  case 25:
+
+    { (yylhs.value.expressionVal) = new LogicalExpressionOr((yystack_[2].value.expressionVal),(yystack_[0].value.expressionVal)); }
+
+    break;
+
+  case 26:
+
+    { (yylhs.value.expressionVal) = (yystack_[1].value.expressionVal); }
+
+    break;
+
+  case 27:
+
+    { (yylhs.value.expressionVal) = (yystack_[0].value.expressionVal); }
+
+    break;
+
+  case 28:
+
+    { (yylhs.value.expressionVal) = new ConstantExpressionInteger(1); }
+
+    break;
+
+  case 29:
+
+    { (yylhs.value.expressionVal) = new ConstantExpressionInteger(0); }
+
+    break;
+
+  case 30:
+
+    { (yylhs.value.expressionVal) = new LogicalExpressionNot((yystack_[0].value.expressionVal)); }
+
+    break;
+
+  case 31:
+
+    { (yylhs.value.expressionVal) = new ComparationExpressionGt((yystack_[2].value.expressionVal), (yystack_[0].value.expressionVal)); }
+
+    break;
+
+  case 32:
+
+    { (yylhs.value.expressionVal) = new ComparationExpressionGtEq((yystack_[2].value.expressionVal), (yystack_[0].value.expressionVal)); }
+
+    break;
+
+  case 33:
+
+    { (yylhs.value.expressionVal) = new ComparationExpressionLt((yystack_[2].value.expressionVal), (yystack_[0].value.expressionVal)); }
+
+    break;
+
+  case 34:
+
+    { (yylhs.value.expressionVal) = new ComparationExpressionLtEq((yystack_[2].value.expressionVal), (yystack_[0].value.expressionVal)); }
+
+    break;
+
+  case 35:
+
+    { (yylhs.value.expressionVal) = new ComparationExpressionEq((yystack_[2].value.expressionVal), (yystack_[0].value.expressionVal)); }
+
+    break;
+
+  case 36:
+
+    { (yylhs.value.expressionVal) = new ComparationExpressionNotEq((yystack_[2].value.expressionVal), (yystack_[0].value.expressionVal)); }
+
+    break;
+
+  case 37:
+
+    {
+			auto constant_string = new ConstantExpressionIdentifier((yystack_[4].value.stringVal)); 
+			(yylhs.value.expressionVal) = new ValueInCollectionFunction(constant_string, (yystack_[1].value.collectionVal)); 
+		}
+
+    break;
+
+  case 38:
+
+    { (yylhs.value.collectionVal) = new ConstantsCollection(); (yylhs.value.collectionVal)->Add((yystack_[0].value.expressionVal)); }
+
+    break;
+
+  case 39:
+
+    { (yylhs.value.collectionVal) = (yystack_[0].value.collectionVal); (yylhs.value.collectionVal)->Add((yystack_[2].value.expressionVal)); }
+
+    break;
+
+  case 40:
+
+    { (yylhs.value.expressionVal) = new MathExpressionAdd((yystack_[2].value.expressionVal), (yystack_[0].value.expressionVal)); }
+
+    break;
+
+  case 41:
+
+    { (yylhs.value.expressionVal) = new MathExpressionSub((yystack_[2].value.expressionVal), (yystack_[0].value.expressionVal)); }
+
+    break;
+
+  case 42:
+
+    { (yylhs.value.expressionVal) = new MathExpressionMul((yystack_[2].value.expressionVal), (yystack_[0].value.expressionVal)); }
+
+    break;
+
+  case 43:
+
+    { (yylhs.value.expressionVal) = new MathExpressionDiv((yystack_[2].value.expressionVal), (yystack_[0].value.expressionVal)); }
+
+    break;
+
+  case 44:
+
+    { (yylhs.value.expressionVal) = new MathExpressionDivInt((yystack_[2].value.expressionVal), (yystack_[0].value.expressionVal)); }
+
+    break;
+
+  case 46:
+
+    { (yylhs.value.expressionVal) = new ConstantExpressionString((yystack_[0].value.stringVal)); }
+
+    break;
+
+  case 47:
+
+    { (yylhs.value.expressionVal) = new ConstantExpressionIdentifier((yystack_[0].value.stringVal));}
+
+    break;
+
+  case 48:
+
+    { (yylhs.value.expressionVal) = new ConstantExpressionInteger((yystack_[0].value.integerVal));}
+
+    break;
+
+  case 49:
+
+    { (yylhs.value.expressionVal) = new ConstantExpressionDouble((yystack_[0].value.doubleVal));}
+
+    break;
+
+  case 50:
+
+    { (yylhs.value.expressionVal) = (yystack_[1].value.expressionVal); }
 
     break;
 
@@ -1006,72 +1306,123 @@ namespace gcpql_query {
   }
 
 
-  const signed char Parser::yypact_ninf_ = -42;
+  const signed char Parser::yypact_ninf_ = -54;
 
-  const signed char Parser::yytable_ninf_ = -14;
+  const signed char Parser::yytable_ninf_ = -23;
 
   const signed char
   Parser::yypact_[] =
   {
-     -27,   -41,   -33,     4,   -42,   -42,   -37,   -42,   -37,   -20,
-     -29,   -42,   -42,   -41,   -28,   -26,   -35,   -33,   -42,   -42,
-     -42,   -42,   -34,   -42
+      28,     0,   -28,    17,    60,   -54,    37,    26,   -54,   -54,
+      30,    39,    29,   -54,    26,    44,    38,   -54,   -54,    10,
+     -54,   -28,    58,   -25,    59,    61,     7,    51,    17,   -54,
+      10,   -54,   -54,   -54,   -54,   -54,    91,    10,    27,   -54,
+      69,   -54,   -54,   -54,    37,   -54,   -54,   -54,    54,   -54,
+      56,    -4,    -5,    10,    10,    31,    31,    31,    31,    31,
+      31,    31,    31,    31,    31,    31,   -54,   -54,    31,   -54,
+     -54,   -54,    72,   -54,    31,    74,    74,    74,    74,    74,
+      74,    40,    40,   -54,   -54,   -54,    57,    62,    32,   -54,
+      31,   -54
   };
 
   const unsigned char
   Parser::yydefact_[] =
   {
-       0,     0,     0,     0,     2,     3,     5,     6,     4,    13,
-       0,    10,     1,     0,     0,    12,     0,     0,    11,     7,
-      14,     9,     0,     8
+       0,     0,     0,     0,     0,     2,     6,    14,    15,     7,
+      11,     0,     8,     9,    13,    22,     0,    19,     1,     0,
+       4,     0,     0,     0,     0,     0,    21,     0,     0,    20,
+       0,    28,    29,    48,    49,    46,    47,     0,     5,    27,
+       0,    45,    16,    12,     6,    10,    23,    18,     0,    30,
+       0,     0,     0,     0,     0,     0,     0,     0,     0,     0,
+       0,     0,     0,     0,     0,     0,     3,    17,     0,    26,
+      50,    24,    25,    47,     0,    31,    32,    33,    34,    35,
+      36,    40,    41,    42,    44,    43,     0,    38,     0,    37,
+       0,    39
   };
 
   const signed char
   Parser::yypgoto_[] =
   {
-     -42,   -42,   -42,   -42,    10,    -1,   -42,    -4,   -42,    12
+     -54,   -54,   -54,    63,   -54,   -54,    77,    80,   103,    85,
+     -54,    81,   -54,   105,     8,   -54,    20,   -35,   -53
   };
 
   const signed char
   Parser::yydefgoto_[] =
   {
-      -1,     3,     4,     5,     6,     7,    10,    16,    17,    18
+      -1,     4,     5,    20,    11,    12,    13,     6,     7,     8,
+      16,    27,    28,    29,    38,    39,    86,    40,    41
   };
 
   const signed char
   Parser::yytable_[] =
   {
-      14,     1,     2,     9,    12,    13,    14,    15,    20,    21,
-      23,     8,    19,    22,    11,     0,     2,     0,   -13
+      53,    54,    52,     2,    55,    56,    57,    58,    59,    60,
+      61,    62,    63,    64,    65,    87,     3,     9,    30,     3,
+      75,    76,    77,    78,    79,    80,    81,    82,    83,    84,
+      85,    53,    54,    25,    31,    32,    10,    87,    49,    88,
+      70,    69,    33,    34,    35,    51,    36,    61,    62,    63,
+      64,    65,   -22,    15,    37,     1,     2,    63,    64,    65,
+      18,    71,    72,    33,    34,    35,    19,    73,    21,    23,
+      25,    24,     3,    22,    26,    74,    53,    70,    55,    56,
+      57,    58,    59,    60,    61,    62,    63,    64,    65,    61,
+      62,    63,    64,    65,    43,    10,    47,    46,    50,    67,
+      68,    45,    89,    44,    90,    14,    42,    66,    17,    48,
+      91
   };
 
-  const signed char
+  const unsigned char
   Parser::yycheck_[] =
   {
-      26,    28,    43,    36,     0,    42,    26,    36,    36,    44,
-      44,     1,    13,    17,     2,    -1,    43,    -1,    44
+       4,     5,    37,    28,     9,    10,    11,    12,    13,    14,
+      15,    16,    17,    18,    19,    68,    44,    17,     8,    44,
+      55,    56,    57,    58,    59,    60,    61,    62,    63,    64,
+      65,     4,     5,    26,    24,    25,    36,    90,    30,    74,
+      45,    45,    32,    33,    34,    37,    36,    15,    16,    17,
+      18,    19,    45,    36,    44,    27,    28,    17,    18,    19,
+       0,    53,    54,    32,    33,    34,    29,    36,    42,    30,
+      26,    42,    44,    43,    36,    44,     4,    45,     9,    10,
+      11,    12,    13,    14,    15,    16,    17,    18,    19,    15,
+      16,    17,    18,    19,    36,    36,    45,    36,     7,    45,
+      44,    24,    45,    23,    42,     2,    21,    44,     3,    28,
+      90
   };
 
   const unsigned char
   Parser::yystos_[] =
   {
-       0,    28,    43,    46,    47,    48,    49,    50,    49,    36,
-      51,    54,     0,    42,    26,    36,    52,    53,    54,    50,
-      36,    44,    52,    44
+       0,    27,    28,    44,    47,    48,    53,    54,    55,    17,
+      36,    50,    51,    52,    54,    36,    56,    59,     0,    29,
+      49,    42,    43,    30,    42,    26,    36,    57,    58,    59,
+       8,    24,    25,    32,    33,    34,    36,    44,    60,    61,
+      63,    64,    55,    36,    53,    52,    36,    45,    57,    60,
+       7,    60,    63,     4,     5,     9,    10,    11,    12,    13,
+      14,    15,    16,    17,    18,    19,    49,    45,    44,    45,
+      45,    60,    60,    36,    44,    63,    63,    63,    63,    63,
+      63,    63,    63,    63,    63,    63,    62,    64,    63,    45,
+      42,    62
   };
 
   const unsigned char
   Parser::yyr1_[] =
   {
-       0,    45,    46,    47,    48,    48,    49,    49,    50,    50,
-      51,    52,    53,    54,    54
+       0,    46,    47,    48,    48,    49,    49,    50,    50,    51,
+      51,    52,    52,    53,    53,    54,    54,    55,    55,    56,
+      57,    58,    59,    59,    60,    60,    60,    60,    60,    60,
+      60,    61,    61,    61,    61,    61,    61,    61,    62,    62,
+      63,    63,    63,    63,    63,    63,    64,    64,    64,    64,
+      64
   };
 
   const unsigned char
   Parser::yyr2_[] =
   {
-       0,     2,     1,     1,     2,     1,     1,     3,     5,     4,
-       1,     1,     1,     1,     3
+       0,     2,     1,     5,     2,     2,     0,     1,     1,     1,
+       3,     1,     3,     2,     1,     1,     3,     5,     4,     1,
+       1,     1,     1,     3,     3,     3,     3,     1,     1,     1,
+       2,     3,     3,     3,     3,     3,     3,     5,     1,     3,
+       3,     3,     3,     3,     3,     1,     1,     1,     1,     1,
+       3
   };
 
 
@@ -1088,17 +1439,23 @@ namespace gcpql_query {
   "OP_SHIFT_RIGHT", "CONSTANT_TRUE", "CONSTANT_FALSE", "OP_AS",
   "OP_RETURN", "OP_SELECT", "OP_WHERE", "OP_FROM", "OP_JOIN",
   "\"integer\"", "\"double\"", "\"string\"", "NAME", "IDENTIFIER", "BOOL",
-  "'|'", "'&'", "'^'", "UMINUS", "','", "'('", "')'", "$accept",
-  "gcpql_body", "return_expr", "select_expr", "graph_path",
-  "graph_relation", "node_from", "node_to", "edge", "node", YY_NULL
+  "'|'", "'&'", "'^'", "UMINUS", "','", "'.'", "'('", "')'", "$accept",
+  "gcpql_body", "return_expr", "filter_expr", "graph_slice",
+  "return_nodes_list", "return_node", "select_expr", "graph_path",
+  "graph_relation", "node_from", "node_to", "edge", "node", "logical_expr",
+  "comparation_expr", "constant_array", "math_expr", "constant", YY_NULL
   };
 
 #if YYDEBUG
   const unsigned char
   Parser::yyrline_[] =
   {
-       0,   126,   126,   130,   134,   135,   139,   140,   144,   145,
-     148,   149,   150,   153,   154
+       0,   144,   144,   148,   155,   165,   166,   170,   171,   175,
+     176,   180,   181,   185,   186,   190,   191,   195,   196,   199,
+     200,   201,   204,   205,   209,   210,   211,   212,   213,   214,
+     215,   219,   220,   221,   222,   223,   224,   225,   233,   234,
+     238,   239,   240,   241,   242,   243,   247,   248,   249,   250,
+     251
   };
 
   // Print the state stack on the debug stream.
@@ -1143,7 +1500,7 @@ namespace gcpql_query {
        2,     2,     2,     2,     2,     2,     2,     2,     2,     2,
        2,     2,     2,     2,     2,     2,     2,     2,     2,     2,
        2,     2,     2,     2,     2,     2,     2,     2,    39,     2,
-      43,    44,     2,     2,    42,     2,     2,     2,     2,     2,
+      44,    45,     2,     2,    42,     2,    43,     2,     2,     2,
        2,     2,     2,     2,     2,     2,     2,     2,     2,     2,
        2,     2,     2,     2,     2,     2,     2,     2,     2,     2,
        2,     2,     2,     2,     2,     2,     2,     2,     2,     2,

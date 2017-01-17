@@ -1,7 +1,7 @@
 #pragma once
 #include "base_expression.h"
 
-namespace gcpql_nodefilter {
+namespace gcpql_query {
 
 	class MathExpressionAdd : public BinaryExpression {
 	public:
@@ -9,7 +9,7 @@ namespace gcpql_nodefilter {
 			: BinaryExpression(left, right) {
 		}
 
-		AstVariant Execute(const IFilterContext& context) {
+		AstVariant Execute(const IQueryContext& context) {
 			auto left_result = left->Execute(context);
 			auto right_result = right->Execute(context);
 
@@ -25,7 +25,7 @@ namespace gcpql_nodefilter {
 		MathExpressionSub(BaseExpression* left, BaseExpression* right)
 			: BinaryExpression(left, right) {
 		}
-		AstVariant Execute(const IFilterContext& context) {
+		AstVariant Execute(const IQueryContext& context) {
 			auto left_result = left->Execute(context);
 			auto right_result = right->Execute(context);
 
@@ -41,7 +41,7 @@ namespace gcpql_nodefilter {
 		MathExpressionMul(BaseExpression* left, BaseExpression* right)
 			: BinaryExpression(left, right) {
 		}
-		AstVariant Execute(const IFilterContext& context) {
+		AstVariant Execute(const IQueryContext& context) {
 			auto left_result = left->Execute(context);
 			auto right_result = right->Execute(context);
 
@@ -57,7 +57,7 @@ namespace gcpql_nodefilter {
 		MathExpressionDiv(BaseExpression* left, BaseExpression* right)
 			: BinaryExpression(left, right) {
 		}
-		AstVariant Execute(const IFilterContext& context) {
+		AstVariant Execute(const IQueryContext& context) {
 			auto left_result = left->Execute(context);
 			auto right_result = right->Execute(context);
 
@@ -73,7 +73,7 @@ namespace gcpql_nodefilter {
 		MathExpressionDivInt(BaseExpression* left, BaseExpression* right)
 			: BinaryExpression(left, right) {
 		}
-		AstVariant Execute(const IFilterContext& context) {
+		AstVariant Execute(const IQueryContext& context) {
 			auto left_result = left->Execute(context);
 			auto right_result = right->Execute(context);
 

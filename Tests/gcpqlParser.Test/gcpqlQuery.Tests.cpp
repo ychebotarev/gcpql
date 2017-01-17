@@ -37,7 +37,7 @@ namespace gcpqlQueryTest
             auto runner = driver.parse_string(script);
             Assert::IsNotNull(runner, test_helpers::StringToWString(script).c_str());
 
-            auto graph_path = runner->GetPath();
+            auto graph_path = runner->GetQuery()->GetPath();
             Assert::IsNotNull(graph_path, test_helpers::StringToWString(script).c_str());
             auto path_out = graph_path->ToString();
             Assert::AreEqual(path_in, path_out, test_helpers::StringToWString(script).c_str());

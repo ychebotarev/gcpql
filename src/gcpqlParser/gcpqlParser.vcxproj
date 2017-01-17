@@ -136,34 +136,29 @@
   <ItemGroup>
     <ClInclude Include="common\AstVariant.h" />
     <ClInclude Include="common\disjoint_hash_set.h" />
+    <ClInclude Include="gcpql_query\filter\base_expression.h" />
+    <ClInclude Include="gcpql_query\filter\comparation_expression.h" />
+    <ClInclude Include="gcpql_query\filter\constants_collection.h" />
+    <ClInclude Include="gcpql_query\filter\constant_expression.h" />
+    <ClInclude Include="gcpql_query\filter\expressions.h" />
+    <ClInclude Include="gcpql_query\filter\function_expression.h" />
+    <ClInclude Include="gcpql_query\filter\logical_expression.h" />
+    <ClInclude Include="gcpql_query\filter\math_expression.h" />
     <ClInclude Include="gcpql_query\gcpql_query_driver.h" />
     <ClInclude Include="gcpql_query\gcpql_query_parser.h" />
     <ClInclude Include="gcpql_query\gcpql_query_runner.h" />
     <ClInclude Include="gcpql_query\gcpql_query_scanner.h" />
-    <ClInclude Include="gcpql_query\graph\graph_edge.h" />
+    <ClInclude Include="gcpql_query\graph\graph.h" />
     <ClInclude Include="gcpql_query\graph\graph_node.h" />
     <ClInclude Include="gcpql_query\graph\graph_path.h" />
+    <ClInclude Include="gcpql_query\graph\graph_path_filter.h" />
+    <ClInclude Include="gcpql_query\graph\graph_query.h" />
     <ClInclude Include="gcpql_query\graph\graph_relation.h" />
+    <ClInclude Include="gcpql_query\graph\graph_slice.h" />
     <ClInclude Include="gcpql_query\location.hh" />
     <ClInclude Include="gcpql_query\gcpql_query_context.h" />
     <ClInclude Include="gcpql_query\position.hh" />
     <ClInclude Include="gcpql_query\stack.hh" />
-    <ClInclude Include="node_filter\Expression\base_expression.h" />
-    <ClInclude Include="node_filter\Expression\comparation_expression.h" />
-    <ClInclude Include="node_filter\Expression\constants_collection.h" />
-    <ClInclude Include="node_filter\Expression\constant_expression.h" />
-    <ClInclude Include="node_filter\Expression\expressions.h" />
-    <ClInclude Include="node_filter\Expression\function_expression.h" />
-    <ClInclude Include="node_filter\Expression\logical_expression.h" />
-    <ClInclude Include="node_filter\Expression\math_expression.h" />
-    <ClInclude Include="node_filter\location.hh" />
-    <ClInclude Include="node_filter\node_filter_context.h" />
-    <ClInclude Include="node_filter\node_filter_driver.h" />
-    <ClInclude Include="node_filter\node_filter_parser.h" />
-    <ClInclude Include="node_filter\node_filter_runner.h" />
-    <ClInclude Include="node_filter\node_filter_scanner.h" />
-    <ClInclude Include="node_filter\position.hh" />
-    <ClInclude Include="node_filter\stack.hh" />
     <ClInclude Include="stdafx.h" />
     <ClInclude Include="targetver.h" />
   </ItemGroup>
@@ -173,9 +168,6 @@
     <ClCompile Include="gcpql_query\gcpql_query_scanner.cc" />
     <ClCompile Include="gcpql_query\graph\graph_path.cpp" />
     <ClCompile Include="gcpql_query\graph\graph_relation.cpp" />
-    <ClCompile Include="node_filter\node_filter_driver.cc" />
-    <ClCompile Include="node_filter\node_filter_parser.cc" />
-    <ClCompile Include="node_filter\node_filter_scanner.cc" />
     <ClCompile Include="stdafx.cpp">
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">Create</PrecompiledHeader>
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">Create</PrecompiledHeader>
@@ -186,8 +178,6 @@
   <ItemGroup>
     <None Include="gcpql_query\script\gcpql_query_parser.y" />
     <None Include="gcpql_query\script\gcpql_query_scanner.l" />
-    <None Include="node_filter\script\node_filter_parser.y" />
-    <None Include="node_filter\script\node_filter_scanner.l" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

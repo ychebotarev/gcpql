@@ -3,25 +3,25 @@
 
 using namespace Microsoft::VisualStudio::CppUnitTestFramework;
 
-#include "src/gcpqlParser/node_filter/node_filter_driver.h"
-#include "src/gcpqlParser/node_filter/node_filter_runner.h"
+#include "src/gcpqlParser/gcpql_query/gcpql_query_driver.h"
+#include "src/gcpqlParser/gcpql_query/gcpql_query_runner.h"
 
 #include "test_helpers.h"
-#include "FilterContextMock.h"
+#include "gcpqlQueryContextMock.h"
 
 
-namespace filterParserTest
+namespace queryFilterParserTest
 {		
-	TEST_CLASS(filterParserTests)
+	TEST_CLASS(queryFilterParserTests)
 	{
 	public:
-		TEST_METHOD(filterParserTestSimple)
+		TEST_METHOD(queryFilterParserTestSimple)
 		{
 			ExpectTrue("1>0");
 			ExpectFalse("1<0");
 		}
 		
-		TEST_METHOD(filterParserTestMixedTypes)
+		TEST_METHOD(queryFilterParserTestMixedTypes)
 		{
 			ExpectTrue("1>0.2");
 			ExpectTrue("1<0.9 or true");
@@ -30,7 +30,7 @@ namespace filterParserTest
 			ExpectFalse("1<0.9 and true");
 		}
 
-		TEST_METHOD(filterParserTestLogicalExpressions)
+		TEST_METHOD(queryFilterParserTestLogicalExpressions)
 		{
 			ExpectTrue("true and 2>1");
 			ExpectTrue("2>1 and true");
@@ -53,7 +53,7 @@ namespace filterParserTest
 			ExpectFalse("not true and 2>1");
 		}
 
-		TEST_METHOD(filterParserTestComparationExpression)
+		TEST_METHOD(queryFilterParserTestComparationExpression)
 		{
 			ExpectTrue("2>1");
 			ExpectTrue("2>=1");
@@ -74,7 +74,7 @@ namespace filterParserTest
 			ExpectFalse("4!=4");
 		}
 
-		TEST_METHOD(filterParserTestMathExpression)
+		TEST_METHOD(queryFilterParserTestMathExpression)
 		{
 			ExpectTrue("2+1=3");
 			ExpectTrue("2.1+1>3.05");
@@ -112,9 +112,9 @@ namespace filterParserTest
 			
 			try
 			{
-				gcpql_nodefilter::Driver driver;
+				gcpql_query::Driver driver;
 				auto runner = driver.parse_string("9/0=2");
-				auto result = runner->Execute(FilterContextMock::Instance());
+				auto result = runner->Execute(gcpqlQueryContextMock::Instance());
 			}
 			catch (const std::overflow_error&)
 			{
@@ -126,9 +126,9 @@ namespace filterParserTest
 			was_exception = false;
 			try
 			{
-				gcpql_nodefilter::Driver driver;
+				gcpql_query::Driver driver;
 				auto runner = driver.parse_string("9/(4.0-4)=2");
-				auto result = runner->Execute(FilterContextMock::Instance());
+				auto result = runner->Execute(gcpqlQueryContextMock::Instance());
 			}
 			catch (const std::overflow_error&)
 			{
@@ -137,7 +137,7 @@ namespace filterParserTest
 			Assert::IsTrue(was_exception);			
 		}
 
-		TEST_METHOD(filterParserTestProperties)
+		TEST_METHOD(gcpqlFilterParserTestProperties)
 		{
 			ExpectTrue("int_property_100 > int_property_10 and (int_property_5 > int_property_10 or int_property_5 >= int_property_5)");
 			ExpectTrue("bool_property_true = 1 and 2>=1");
@@ -145,7 +145,7 @@ namespace filterParserTest
 			ExpectFalse("bool_property_false != 0 and 2>1");
 		}
 		
-		TEST_METHOD(filterParserTestBrackets)
+		TEST_METHOD(gcpqlFilterParserTestBrackets)
 		{
 			ExpectTrue("(true or false)");
 			ExpectFalse("(true and false)");
@@ -155,7 +155,7 @@ namespace filterParserTest
 			ExpectFalse("(true or false) and false");
 		}
 		
-		TEST_METHOD(filterParserTestParsingErrors)
+		TEST_METHOD(gcpqlFilterParserTestParsingErrors)
 		{
 			ExpectParsingError("1");
 			ExpectParsingError("1+");
@@ -173,7 +173,7 @@ namespace filterParserTest
 			ExpectParsingError("and 1");
 		}
 
-		TEST_METHOD(filterParserTestCollection)
+		TEST_METHOD(gcpqlFilterParserTestCollection)
 		{
 			ExpectTrue("string_property_a in (\"b\",\"c\",\"a\")");
 			ExpectTrue("string_property_a in (string_property_a , \"b\",\"c\")");
@@ -190,10 +190,10 @@ namespace filterParserTest
 
 		void ExpectTrue(const std::string& script)
 		{
-			gcpql_nodefilter::Driver driver;
-			auto runner = driver.parse_string(script);
+			gcpql_query::Driver driver;
+			auto runner = driver.parse_string("(actors movies) where " + script);
 			Assert::IsNotNull(runner, test_helpers::StringToWString(script).c_str());
-			auto result = runner->Execute(FilterContextMock::Instance());
+			auto result = runner->Execute(gcpqlQueryContextMock::Instance());
 			Assert::IsTrue(result.Valid(), test_helpers::StringToWString(script).c_str());
 			Assert::IsTrue(result.Is<bool>(), test_helpers::StringToWString(script).c_str());
 			Assert::IsTrue(result.IsTrue(), test_helpers::StringToWString(script).c_str());
@@ -201,10 +201,10 @@ namespace filterParserTest
 		
 		void ExpectFalse(const std::string& script)
 		{
-			gcpql_nodefilter::Driver driver;
-			auto runner = driver.parse_string(script);
+			gcpql_query::Driver driver;
+			auto runner = driver.parse_string("(actors movies) where " + script);
 			Assert::IsNotNull(runner, test_helpers::StringToWString(script).c_str());
-			auto result = runner->Execute(FilterContextMock::Instance());
+			auto result = runner->Execute(gcpqlQueryContextMock::Instance());
 			Assert::IsTrue(result.Valid(), test_helpers::StringToWString(script).c_str());
 			Assert::IsTrue(result.Is<bool>(), test_helpers::StringToWString(script).c_str());
 			Assert::IsFalse(result.IsTrue(), test_helpers::StringToWString(script).c_str());
@@ -212,8 +212,8 @@ namespace filterParserTest
 
 		void ExpectParsingError(const std::string& script)
 		{
-			gcpql_nodefilter::Driver driver;
-			auto runner = driver.parse_string(script);
+			gcpql_query::Driver driver;
+			auto runner = driver.parse_string("(actors movies) where " + script);
 			Assert::IsNull(runner, test_helpers::StringToWString(script).c_str());
 		}
 	};

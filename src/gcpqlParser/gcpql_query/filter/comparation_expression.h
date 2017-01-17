@@ -1,8 +1,8 @@
 #pragma once
 #include "base_expression.h"
-#include "src\gcpqlParser\node_filter\node_filter_context.h"
+#include "src\gcpqlParser\gcpql_query\gcpql_query_context.h"
 
-namespace gcpql_nodefilter {
+namespace gcpql_query {
 
 	class ComparationExpressionGt : public BinaryExpression 
 	{
@@ -11,7 +11,7 @@ namespace gcpql_nodefilter {
 			: BinaryExpression(left, right) {
 		}
 
-		AstVariant Execute(const IFilterContext& context) {
+		AstVariant Execute(const IQueryContext& context) {
 			auto left_result = left->Execute(context);
 			auto right_result = right->Execute(context);
 			
@@ -33,7 +33,7 @@ namespace gcpql_nodefilter {
 			: BinaryExpression(left, right) {
 		}
 
-		AstVariant Execute(const IFilterContext& context) {
+		AstVariant Execute(const IQueryContext& context) {
 			auto left_result = left->Execute(context);
 			auto right_result = right->Execute(context);
 
@@ -55,7 +55,7 @@ namespace gcpql_nodefilter {
 			: BinaryExpression(left, right) {
 		}
 
-		AstVariant Execute(const IFilterContext& context) {
+		AstVariant Execute(const IQueryContext& context) {
 			auto left_result = left->Execute(context);
 			auto right_result = right->Execute(context);
 
@@ -77,7 +77,7 @@ namespace gcpql_nodefilter {
 			: BinaryExpression(left, right) {
 		}
 
-		AstVariant Execute(const IFilterContext& context) {
+		AstVariant Execute(const IQueryContext& context) {
 			auto left_result = left->Execute(context);
 			auto right_result = right->Execute(context);
 
@@ -98,7 +98,7 @@ namespace gcpql_nodefilter {
 			: BinaryExpression(left, right) {
 		}
 
-		AstVariant Execute(const IFilterContext& context) {
+		AstVariant Execute(const IQueryContext& context) {
 			auto left_result = left->Execute(context);
 			auto right_result = right->Execute(context);
 
@@ -112,7 +112,7 @@ namespace gcpql_nodefilter {
 			: BinaryExpression(left, right) {
 		}
 
-		AstVariant Execute(const IFilterContext& context) {
+		AstVariant Execute(const IQueryContext& context) {
 			auto left_result = left->Execute(context);
 			auto right_result = right->Execute(context);
 

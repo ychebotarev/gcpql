@@ -2,14 +2,14 @@
 #include <memory>
 #include "base_expression.h"
 
-namespace gcpql_nodefilter {
+namespace gcpql_query {
 	class LogicalExpressionAnd : public BinaryExpression {
 	public:
 		LogicalExpressionAnd(BaseExpression* left, BaseExpression* right)
 			: BinaryExpression(left, right)  {
 		}
 
-		AstVariant Execute(const IFilterContext& context) {
+		AstVariant Execute(const IQueryContext& context) {
 			auto left_result = left->Execute(context);
 			if (!left_result.IsTrue()) return AstVariant(false);
 			auto right_result = right->Execute(context);
@@ -24,7 +24,7 @@ namespace gcpql_nodefilter {
 			: BinaryExpression(left, right) {
 		}
 
-		AstVariant Execute(const IFilterContext& context) {
+		AstVariant Execute(const IQueryContext& context) {
 			auto left_result = left->Execute(context);
 			if (left_result.IsTrue()) return AstVariant(true);
 			auto right_result = right->Execute(context);
@@ -38,7 +38,7 @@ namespace gcpql_nodefilter {
 			: UnaryExpression(inner_operation_) {
 		}
 
-		AstVariant Execute(const IFilterContext& context) {
+		AstVariant Execute(const IQueryContext& context) {
 			auto result = inner_operation->Execute(context);
 			return !result.IsTrue();
 		}

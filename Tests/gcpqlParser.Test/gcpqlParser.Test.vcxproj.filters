@@ -21,9 +21,6 @@
     <ClInclude Include="targetver.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="FilterContextMock.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
     <ClInclude Include="gcpqlQueryContextMock.h">
       <Filter>Header Files</Filter>
     </ClInclude>
@@ -33,9 +30,6 @@
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="stdafx.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="NodeFilter.Tests.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
     <ClCompile Include="AstVariant.Tests.cpp">
@@ -48,6 +42,9 @@
       <Filter>Source Files</Filter>
     </ClCompile>
     <ClCompile Include="test_helpers.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="queryFilter.Tests.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
   </ItemGroup>

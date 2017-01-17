@@ -4,7 +4,7 @@
 #include "base_expression.h"
 #include "constants_collection.h"
 
-namespace gcpql_nodefilter {
+namespace gcpql_query {
 	class ValueInCollectionFunction : public BaseExpression {
 	public:
 		ValueInCollectionFunction(
@@ -16,7 +16,7 @@ namespace gcpql_nodefilter {
 		~ValueInCollectionFunction() {
 		}
 
-		AstVariant Execute(const IFilterContext& context) {
+		AstVariant Execute(const IQueryContext& context) {
 
 			auto value_result = value->Execute(context);
 

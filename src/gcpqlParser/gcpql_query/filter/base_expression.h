@@ -4,15 +4,15 @@
 #include <iostream>
 
 #include "src/gcpqlParser/common/AstVariant.h"
-#include "src/gcpqlParser/node_filter/node_filter_context.h"
+#include "src/gcpqlParser/gcpql_query/gcpql_query_context.h"
 
-namespace gcpql_nodefilter {
+namespace gcpql_query {
 
 	class BaseExpression {
 	public:
 		BaseExpression() { }
 		virtual ~BaseExpression() {  };
-		virtual AstVariant Execute(const IFilterContext& context) = 0;
+		virtual AstVariant Execute(const IQueryContext& context) = 0;
 	};
 
 	class BinaryExpression : public BaseExpression {

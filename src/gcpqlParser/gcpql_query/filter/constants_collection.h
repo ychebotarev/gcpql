@@ -3,7 +3,7 @@
 #include <vector>
 #include "base_expression.h"
 
-namespace gcpql_nodefilter {
+namespace gcpql_query {
 	
 	typedef std::vector<std::unique_ptr<BaseExpression>> BaseExpressionCollection;
 	

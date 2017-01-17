@@ -77,8 +77,12 @@ namespace gcpql_query {
     std::string* stringVal;
 	class GraphPath* pathVal;
 	class GraphNode* nodeVal;
-	class GraphEdge* edgeVal;
 	class GraphRelation* relationVal;
+	class GraphPathFilter* graphFilterVal;
+	class GraphSlice* sliceVal;
+	class GraphQuery* graphQuery;
+    class BaseExpression* expressionVal;
+	class ConstantsCollection* collectionVal;
 
 
     };
@@ -312,7 +316,7 @@ namespace gcpql_query {
   // number is the opposite.  If YYTABLE_NINF, syntax error.
   static const signed char yytable_[];
 
-  static const signed char yycheck_[];
+  static const unsigned char yycheck_[];
 
   // YYSTOS[STATE-NUM] -- The (internal number of the) accessing
   // symbol of state STATE-NUM.
@@ -427,13 +431,13 @@ namespace gcpql_query {
     enum
     {
       yyeof_ = 0,
-      yylast_ = 18,           //< Last index in yytable_.
-      yynnts_ = 10,  //< Number of nonterminal symbols.
+      yylast_ = 110,           //< Last index in yytable_.
+      yynnts_ = 19,  //< Number of nonterminal symbols.
       yyempty_ = -2,
-      yyfinal_ = 12, //< Termination state number.
+      yyfinal_ = 18, //< Termination state number.
       yyterror_ = 1,
       yyerrcode_ = 256,
-      yyntokens_ = 45    //< Number of tokens.
+      yyntokens_ = 46    //< Number of tokens.
     };
 
 

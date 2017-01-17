@@ -8,5 +8,6 @@ namespace gcpql_query {
 	{
 	public:
 		virtual ~IQueryContext() {}
-	}; 
+        virtual AstVariant GetPropertyValue(const std::string& property_name) const = 0;
+    };
 }

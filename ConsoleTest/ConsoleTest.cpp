@@ -6,16 +6,16 @@
 #include <chrono>
 #include "src/gcpqlParser/common/AstVariant.h"
 
-#include "src/gcpqlParser/node_filter/node_filter_driver.h"
-#include "src/gcpqlParser/node_filter/node_filter_runner.h"
-#include "src/gcpqlParser/node_filter/node_filter_context.h"
+#include "src/gcpqlParser/gcpql_query/gcpql_query_driver.h"
+#include "src/gcpqlParser/gcpql_query/gcpql_query_runner.h"
+#include "src/gcpqlParser/gcpql_query/gcpql_query_context.h"
 
-using namespace gcpql_nodefilter;
+using namespace gcpql_query;
 
-class FilterContextMock : public IFilterContext
+class gcpqlQueryContextMock : public IQueryContext
 {
 public:
-	FilterContextMock() {
+    gcpqlQueryContextMock() {
 		string_a = "a";
 		string_b = "b";
 		string_c = "c";
@@ -36,9 +36,9 @@ public:
 		return AstVariant(0);
 	};
 
-	static const IFilterContext& Instance()
+	static const IQueryContext& Instance()
 	{
-		static FilterContextMock mock;
+		static gcpqlQueryContextMock mock;
 		return mock;
 	}
 private:
@@ -49,16 +49,16 @@ private:
 
 void RunQuery(const std::string& script)
 {
-	gcpql_nodefilter::Driver driver;
+	gcpql_query::Driver driver;
 	auto runner = driver.parse_string(script);
-	FilterContextMock context;
+    gcpqlQueryContextMock context;
 	auto result = runner->Execute(context);
 	delete runner;
 }
 
 void CompileQuery(const std::string& script)
 {
-	gcpql_nodefilter::Driver driver;
+    gcpql_query::Driver driver;
 	auto runner = driver.parse_string(script);
 	delete runner;
 }
